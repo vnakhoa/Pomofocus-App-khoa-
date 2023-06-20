@@ -122,6 +122,8 @@ function deleteItem(){
         input.value = '';
         document.querySelector('.to-do-list').innerHTML = 'To-do-list is empty now!';
         document.querySelector('.to-do-list').style.textAlign = 'center';
+
+        document.querySelector('.result_pomodoro').innerHTML = '0';
     }
 }
 
