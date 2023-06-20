@@ -1,0 +1,217 @@
+body{
+    background-color: #3b6b9b;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+.color{
+    background-color: rgb(138, 83, 114);
+}
+
+/*======= Flex notice and input_list ========*/
+#flex{
+    display: flex;
+    margin-top: 60px;
+}
+
+/*====== NOTICE =======*/
+#notice{
+    width: 15%;
+    background-color: #173451;
+    /* border: 1px solid #04223d; */
+    margin-left: 235px;
+    border-radius: 4px;
+    text-align: center;
+    color: rgb(207, 178, 14);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#finish{
+    margin: 8px;
+}
+
+
+/*======= input list =======*/
+#input{
+    border: none;
+    background-color: #173451;
+    padding: 11px;
+    margin-left: 152px;
+    width: 510px;
+    border-radius: 2px;
+    color: white;
+}
+
+#add_list{
+    margin-bottom: 0px;
+}
+
+/* nút button add task */
+#add_task:hover, .change:hover{
+    color: rgb(207, 178, 14);
+    border-color: rgb(207, 178, 14);
+    background-color: #083a6b;
+}
+
+
+/* CONTAINER */
+#container{
+    display: flex;
+    color: white;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+
+/* COUNTDOWN_TIME */
+#countdown_time{
+    font-weight: bold;
+    font-size: 60px;
+    margin: 40px 0px 40px 0px;
+}
+
+
+/* BUTTON */
+button{
+    background-color: #a9adb1;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid #a9adb1;
+}
+button:hover{
+    background-color: transparent;
+    border: 1px solid #a9adb1;
+    color: white;
+    font-weight: bold;
+}
+
+
+/* ======= TIME ========   (set mac dinh chieu cao) */
+#time{
+    width: 35%;
+    background-color: #173451;
+    border-radius: 5px;
+    padding: 15px;
+    height: 250px;          
+    text-align: center;
+} 
+
+/* Button Start, Pause, Skip */
+#start , #pause{
+    width: 70px;
+    display: inline-block;
+}
+#start:hover , #pause:hover{
+    background-color:rgb(215, 70, 70);
+    color: black;
+}
+#skip{
+    padding: 5px;
+}
+#skip:hover{
+    color: black;
+    background-color: #b6c0cc;
+}
+
+
+/* ======= TASK =======   (khong mac dinh chieu cao)*/
+#task{
+    width: 55%;
+    background-color: #173451;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+h4{
+    font-size: 20px;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+#list{
+    margin-top: 12px;
+    margin-bottom: 0px;
+}
+
+
+/* =================== CSS style for some card items that created by Javascript ======================= */
+ul{
+    padding-left: 0px;
+}
+
+li{
+    padding-left: 5px;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    background-color: #9aa6b3;
+    border-radius: 5px;
+    margin-bottom: 1px;
+    word-break: break-word;
+}
+
+
+li span{
+    display: flex;
+    align-items: center ;
+}
+
+.content{
+    width: 79%;
+}
+
+.pointFinish{
+    font-weight: bold;
+    color: rgb(158, 65, 49);
+    background-color: rgb(184, 161, 132);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5%;
+}
+
+span{
+    padding: 5px 5px;
+}
+
+.edit:hover , .delete:hover {
+    background-color: crimson;
+    cursor: pointer;
+    color: white;
+}
+
+.delete:hover{
+    border-radius: 0px 5px 5px 0px;
+}
+
+/* When click on Item */
+.chooseItem{
+    background-color: #3b6b9b;
+}
+
+/* When completed work */
+.completeItem{
+    text-decoration: line-through;
+}
+
+
+/*======== Time ======= */
+.active_PomodoroAndBreakTime {
+    background-color: transparent;
+    border-color: tomato;
+    color: tomato;
+}
+.active_PomodoroAndBreakTime:hover {
+    background-color: transparent;
+    border-color: tomato;
+    color: tomato;
+}

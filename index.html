@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro App</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+</head>
+<body>
+    <!-- App's name -->
+    <h4 style="color: white; font-size: 35px;">POMODORO App ...</h4>
+    <hr style="width: 250px">
+
+    <div id="flex">
+        <!-- NOTICE -->
+        <div id="notice">
+            <p id="finish">Finished: <span class="result_pomodoro" style="color: white;">0</span></p>
+        </div>
+
+        <!-- input list -->
+        <div id="add_list">
+            <input id="input" type="text" placeholder="Your task ..." >
+            <button id="add_task" class="change-name-add-btn">Add Task</button>
+        </div>
+    </div>
+
+    <!-- CONTAINER -->
+    <div id="container">
+        <!-- Time -->
+        <div id="time">
+            <button id="pomodoro">Pomodoro</button>
+            <button id="breaktime">Break Time</button>
+    
+            <div id="countdown_time">
+                <span id="minute">1</span>
+                <span>:</span>
+                <span id="second">00</span>
+            </div>
+
+            <button id="start">START</button>
+            <button id="pause">PAUSE</button>
+            <button id="skip">Skip>></button>
+            
+        </div>
+
+        <!-- Task -->
+        <div id="task">
+            <h4 style="color:  rgb(207, 178, 14);">___TASK LIST___</h4>
+
+            <ul class="to-do-list"></ul>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
