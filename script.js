@@ -10,10 +10,16 @@ let arrayFinish = localStorage.getItem('finish') ? JSON.parse(localStorage.getIt
 let input = document.querySelector("#input");
 let add_btn = document.querySelector('#add_task');
 
-let t = document.querySelector('.to-do-list');
+let todo = document.querySelector('.to-do-list');
 
 function saveItem(){
-    // Save completed works
+    if(localStorage.getItem('saveFilter') === null){
+        document.querySelector('.filter').value = 'all';
+    }
+    else{
+        document.querySelector('.filter').value = localStorage.getItem('saveFilter');
+    }
+
     if(Number(localStorage.getItem('score')) != 0){
         document.querySelector(".result_pomodoro").innerHTML = localStorage.getItem('score');
     }
@@ -22,7 +28,9 @@ function saveItem(){
     }
 
     //save to-do List
-    t.innerHTML = localStorage.getItem('i');
+    todo.innerHTML = localStorage.getItem('i');
+    filterTodoList();
+    
 
     deleteItem();
     editItem();
@@ -30,25 +38,39 @@ function saveItem(){
 }
 saveItem();
 
-// Add task 
+
+// Click Add 
 add_btn.addEventListener('click', ()=> {
     if(input.value != ''){
         if(add_btn.id != 'add_task'){
             arrayStorage[add_btn.id] = input.value;
 
-            arrayItem[add_btn.id] =      //Add class ='chooseItem' => Xác định item vừa sửa
-            `<li class= "chooseItem">    
-                <span class="content">${input.value}</span>
-                <span class="pointFinish">${arrayFinish[add_btn.id]}</span>
-                <span class="edit">Sửa</span>
-                <span class="delete">Xóa</span>
-            </li>`
+            //Add class ='chooseItem' => Xác định item vừa sửa
+            let edit = document.querySelectorAll('.edit');
+            if(edit[add_btn.id].parentElement.children[0].classList.contains('completeItem') == false){
+                arrayItem[add_btn.id] = 
+                `<li class= "chooseItem">    
+                    <span class="content">${input.value}</span>
+                    <span class="pointFinish">${arrayFinish[add_btn.id]}</span>
+                    <span class="edit"><i class="fas fa-edit"></i></span>
+                    <span class="delete"><i class="fas fa-trash-alt"></i></span>
+                </li>`
+            }
+            else{
+                arrayItem[add_btn.id] = 
+                `<li class= "chooseItem">    
+                    <span class="content completeItem">${input.value}</span>
+                    <span class="pointFinish">${arrayFinish[add_btn.id]}</span>
+                    <span class="edit"><i class="fas fa-edit"></i></span>
+                    <span class="delete"><i class="fas fa-trash-alt"></i></span>
+                </li>`
+            }
 
             //Rsset id for add_btn
             add_btn.id = 'add_task';
             
             // Reset content of add_Btn card
-            document.querySelector(".change-name-add-btn").innerHTML = 'Add Task';
+            document.querySelector(".change-name-add-btn").innerHTML = 'Add';
         }
         else{
             arrayFinish.push(0);
@@ -57,8 +79,8 @@ add_btn.addEventListener('click', ()=> {
             arrayItem.push(`<li>
             <span class="content">${input.value}</span>
             <span class="pointFinish">0</span>
-            <span class="edit">Sửa</span>
-            <span class="delete">Xóa</span>
+            <span class="edit"><i class="fas fa-edit"></i></span>
+            <span class="delete"><i class="fas fa-trash-alt"></i></span>
             </li>`);
         }
     }
@@ -88,7 +110,7 @@ function showItems(arrayItem){
 
     document.querySelector('.to-do-list').innerHTML = items.join('');
 
-    localStorage.setItem('i', t.innerHTML);
+    localStorage.setItem('i', todo.innerHTML);
 
     //Function edit and delete items
     deleteItem();
@@ -113,17 +135,35 @@ function deleteItem(){
             localStorage.setItem('finish', JSON.stringify(arrayFinish))
             
             showItems(arrayItem);
-            localStorage.setItem('i', t.innerHTML);
+            localStorage.setItem('i', todo.innerHTML);
+
+            // Reset add button
+            resetAddButton();
         })
     })
     
     //Reset input box when to-do-list empty
-    if(document.querySelector('.to-do-list').children.length == 0){
+    if(arrayStorage.length == 0){
         input.value = '';
         document.querySelector('.to-do-list').innerHTML = 'To-do-list is empty now!';
         document.querySelector('.to-do-list').style.textAlign = 'center';
 
+        // Change score
         document.querySelector('.result_pomodoro').innerHTML = '0';
+        localStorage.setItem('score', '0');
+
+        // Change select value
+        document.querySelector('.filter').value = 'all';
+        localStorage.setItem('saveFilter', 'all');
+
+        // Chang save button to Add button if it's exiting
+        if(add_btn.id != 'add_task'){
+            //Rsset id for add_btn
+            add_btn.id = 'add_task';
+            
+            // Reset content of add_Btn card
+            document.querySelector(".change-name-add-btn").innerHTML = 'Add';
+        }
     }
 }
 
@@ -139,55 +179,64 @@ function editItem() {
 
             // Set content of add_Btn card
             document.querySelector(".change-name-add-btn").innerHTML = 'Save';
+            document.querySelector(".change-name-add-btn").style.border = 'none';
 
+            // Change font-family for input
+            document.querySelector('#input').style.fontFamily = "'Josefin Sans', sans-serif";
+            document.querySelector('#input').style.fontSize = '18px';
+            
             localStorage.setItem('all_items', JSON.stringify(arrayItem));
-            localStorage.setItem('i', t.innerHTML);
+            localStorage.setItem('i', todo.innerHTML);
         })
+
+        // Filter it again
+        filterTodoList();
     })
 }
 
 
 function chooseItemToWork() {
-    let work = document.querySelectorAll("li");
+    
+    let work = document.querySelector('.to-do-list').childNodes;
     work.forEach((tab, i) => {
         tab.addEventListener('click', () => {
         
             for(let k =0; k < arrayItem.length; k++){
                 if(i == k){
-                    if(document.querySelectorAll('li')[k].children[0].className.includes('completeItem')){
+                    if(document.querySelector('.to-do-list').childNodes[k].children[0].className.includes('completeItem')){
                         //Add class ='completeItem' for span.content
                         arrayItem[k] = `<li class="chooseItem">
                         <span class="content completeItem">${arrayStorage[k]}</span>
                         <span class="pointFinish">${arrayFinish[k]}</span>
-                        <span class="edit">Sửa</span>
-                        <span class="delete">Xóa</span>
+                        <span class="edit"><i class="fas fa-edit"></i></span>
+                        <span class="delete"><i class="fas fa-trash-alt"></i></span>
                     </li>`;
                     }
                     else{
                         arrayItem[k] = `<li class= "chooseItem">
                         <span class="content">${arrayStorage[k]}</span>
                         <span class="pointFinish">${arrayFinish[k]}</span>
-                        <span class="edit">Sửa</span>
-                        <span class="delete">Xóa</span>
+                        <span class="edit"><i class="fas fa-edit"></i></span>
+                        <span class="delete"><i class="fas fa-trash-alt"></i></span>
                     </li>`; 
                     }
                 }
                 else{
-                    if(document.querySelectorAll('li')[k].children[0].className.includes('completeItem')){
+                    if(document.querySelector('.to-do-list').childNodes[k].children[0].className.includes('completeItem')){
                         //Add class ='completeItem' for span.content
                         arrayItem[k] = `<li>
                         <span class="content completeItem">${arrayStorage[k]}</span>
                         <span class="pointFinish">${arrayFinish[k]}</span>
-                        <span class="edit">Sửa</span>
-                        <span class="delete">Xóa</span>
+                        <span class="edit"><i class="fas fa-edit"></i></span>
+                        <span class="delete"><i class="fas fa-trash-alt"></i></span>
                     </li>`;
                     }
                     else{
                         arrayItem[k] = `<li>
                         <span class="content">${arrayStorage[k]}</span>
                         <span class="pointFinish">${arrayFinish[k]}</span>
-                        <span class="edit">Sửa</span>
-                        <span class="delete">Xóa</span>
+                        <span class="edit"><i class="fas fa-edit"></i></span>
+                        <span class="delete"><i class="fas fa-trash-alt"></i></span>
                     </li>`;
                     }
                 }
@@ -195,7 +244,7 @@ function chooseItemToWork() {
 
             localStorage.setItem('all_items', JSON.stringify(arrayItem));
 
-            localStorage.setItem('i', t.innerHTML);
+            localStorage.setItem('i', todo.innerHTML);
 
             //ShowItem
             showItems(arrayItem); 
@@ -262,10 +311,16 @@ function breakTime_Funct() {
 };
 
 
-//Đánh dấu chuyển từ Làm việc sang breaktime và ngược lại
-// let flag = true;
-// let minute;
-// let second;
+function resetAddButton(){
+    if(add_btn.id != 'add_task'){
+        //Rsset id for add_btn if it exit
+        add_btn.id = 'add_task';
+        // set input = "";
+        document.querySelector('#input').value = '';
+        // Reset content of add_Btn card
+        document.querySelector(".change-name-add-btn").innerHTML = 'Add';
+    }
+}
 
 let countDownTime; //Biến setInterval đếm giờ
 let score;  //Số việc hoàn thành
@@ -282,7 +337,9 @@ start_Btn.addEventListener('click', ()=> {
     
     if(second == 0){
         second = 5;
-        minute--;
+        if(minute > 0){
+            minute--;
+        }
         if(second < 10){
             document.querySelector('#second').innerHTML = `0${second}`;
             document.querySelector('#minute').innerHTML = `${minute}`;
@@ -308,12 +365,21 @@ start_Btn.addEventListener('click', ()=> {
         }
         
         second--;
-        if(second == 0 && minute != 0){
+        if(second == 0 && minute > 0){
+            if(second < 10){
+                document.querySelector('#second').innerHTML = `0${second}`;
+                document.querySelector('#minute').innerHTML = `${minute}`;
+            }
+            else{
+                document.querySelector('#second').innerHTML = `${second}`;
+                document.querySelector('#minute').innerHTML = `${minute}`;
+            }
+            
             second = 5;
             minute--;
         }
 
-        if(minute == 0 && second == 0){
+        if(second == 0 && minute == 0){
             //clearInterval
             clearInterval(countDownTime);
 
@@ -338,12 +404,15 @@ start_Btn.addEventListener('click', ()=> {
             }
         }
     }, 1000);
+
+    // Reset add button
+    resetAddButton();
 })
 
 //Complete function đánh dấu việc hoàn thành
 function complete() {
     for(let i = 0; i < arrayItem.length; i++) {
-        if(document.querySelectorAll('li')[i].className === 'chooseItem'){
+        if(document.querySelector('.to-do-list').childNodes[i].className === 'chooseItem'){
 
             let countComplete = arrayFinish[i];
             countComplete++;
@@ -353,8 +422,8 @@ function complete() {
             arrayItem[i] = `<li class="chooseItem">
             <span class="content completeItem">${arrayStorage[i]}</span> 
             <span class="pointFinish">${arrayFinish[i]}</span>
-            <span class="edit">Sửa</span>
-            <span class="delete">Xóa</span>
+            <span class="edit"><i class="fas fa-edit"></i></span>
+            <span class="delete"><i class="fas fa-trash-alt"></i></span>
             </li>`;
         }
     }
@@ -365,7 +434,7 @@ function complete() {
 
     showItems(arrayItem);
     
-    localStorage.setItem('i', t.innerHTML);
+    localStorage.setItem('i', todo.innerHTML);
 }
 
 
@@ -402,3 +471,68 @@ skip_Btn.addEventListener('click', ()=> {
         pomodoro_Funct();
     }
 })
+
+
+// ======== When click Setting =========//
+document.querySelector(".setting").addEventListener('click', openSetting);
+
+function openSetting() {
+    if(document.querySelector('.display_Block')) {
+        document.querySelector('.display_Block').classList.remove('display_Block');
+    }
+    
+    document.querySelector('.form_setting').classList.add('display_Block');
+
+    // add position fixed for card .total_container
+    document.querySelector('.total_container').classList.add("position_fixed");
+}
+
+// click Close form setting
+document.querySelector(".fa-times").addEventListener('click', closeFormSetting);
+
+function closeFormSetting(){
+    document.querySelector('.form_setting').classList.remove('display_Block');
+
+    // Remove position fixed for card .total_container
+    document.querySelector('.total_container').classList.remove("position_fixed");
+}
+
+
+// Filter
+document.querySelector(".filter").addEventListener('change', filterTodoList);
+function filterTodoList(){
+    let filterTodo = todo.childNodes;
+    let filterContent = document.querySelector('.filter');
+    switch(filterContent.value){
+        case 'all':
+            filterTodo.forEach((todos, index) =>{
+                todos.style.display = 'flex';
+            })
+            localStorage.setItem('saveFilter', filterContent.value);
+            break;
+
+        case 'done':
+            filterTodo.forEach((todos, index) =>{
+                if(todos.children[0].classList.contains('completeItem')){
+                    todos.style.display = 'flex';
+                }
+                else{
+                    todos.style.display = 'none';
+                }
+            })
+            localStorage.setItem('saveFilter', filterContent.value);
+            break;
+
+        case 'undone':
+            filterTodo.forEach((todos, index) =>{
+                if(todos.children[0].classList.contains('completeItem') == false){
+                    todos.style.display = 'flex';
+                }
+                else{
+                    todos.style.display = 'none';
+                }
+            })
+            localStorage.setItem('saveFilter', filterContent.value);
+            break;
+    }
+}

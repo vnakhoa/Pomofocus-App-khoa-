@@ -5,52 +5,216 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pomodoro App</title>
+    <link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Font_Awesome_5_solid_check-circle.svg/1200px-Font_Awesome_5_solid_check-circle.svg.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+
     <link rel="stylesheet" href="./style.css">
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script> 
 </head>
 <body>
-    <!-- App's name -->
-    <h4 style="color: white; font-size: 35px;">POMODORO App ...</h4>
-    <hr style="width: 250px">
-
-    <div id="flex">
-        <!-- NOTICE -->
-        <div id="notice">
-            <p id="finish">Finished: <span class="result_pomodoro" style="color: white;">0</span></p>
+    <!-- Form Seting -->
+    <div class="form_setting">
+        <!-- name setting and close button -->
+        <div class="form_setting--head">
+            <h4>Setting</h4>
+            <i class="fas fa-times"></i>
         </div>
-
-        <!-- input list -->
-        <div id="add_list">
-            <input id="input" type="text" placeholder="Your task ..." >
-            <button id="add_task" class="change-name-add-btn">Add Task</button>
+    
+        <!-- Seting_Timer -->
+        <div class="form_setting--timer">
+            <div class="timer_clock">
+                <i class="fas fa-clock"></i>
+                <h4>TIMER</h4>
+            </div>
+            <h4>Time (minutes)</h4>
+    
+            <div class="set_time">
+                <div class="set_time_item">
+                    <label for="">Pomodoro</label> <br>
+                    <input type="number" min="0" step="1" value="1" class="set_time_item--minute">
+                </div>
+                <div class="set_time_item">
+                    <label for="">Break Time</label> <br>
+                    <input type="number" min="0" step="1" value="1" class="set_time_item--second">
+                </div>
+            </div>
+    
+            <div class="auto_start auto_start--break">
+                <h4>Auto Start Breaks</h4>
+                <div class="toggle_btn">
+                    <input type="checkbox" class="toggle_btn--cirle" id="toggle1_input">
+                    <label for="toggle1_input" class="toggle_btn--before"></label>
+                </div>
+            </div>
+    
+            <div class="auto_start auto_start--pomodoro">
+                <h4>Auto Start Pomodoros</h4>
+                <div class="toggle_btn">
+                    <input type="checkbox" class="toggle_btn--cirle" id="toggle2_input">
+                    <label for="toggle2_input" class="toggle_btn--before"></label>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Setting task -->
+        <div class="form_task  form_setting--timer">
+            <div class="setting_task">
+                <i class="fas fa-tasks"></i>
+                <h4>TASK</h4>
+            </div>
+    
+            <div class="auto_start auto_switch--task">
+                <h4>Auto Switch Tasks</h4>
+                <div class="toggle_btn">
+                    <input type="checkbox" class="toggle_btn--cirle" id="toggle3_input">
+                    <label for="toggle3_input" class="toggle_btn--before"></label>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Setting sound -->
+        <div class="form_sound">
+            <div class="setting_sound">
+                <i class="fas fa-volume-up"></i>
+                <h4>SOUND</h4>
+            </div>
+            <div class="form_sound_main">
+                <h4 class="alarm_sound">Alarm Sound</h4>
+                <div class="alarm_sound_dropdown">
+                    <input class="select_sound">
+                    <ul>
+                        <li>Bell</li>
+                        <li>Bird</li>
+                        <li>Digital</li>
+                        <li>Kitchen</li>
+                        <li>Wood</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- CONTAINER -->
-    <div id="container">
-        <!-- Time -->
-        <div id="time">
-            <button id="pomodoro">Pomodoro</button>
-            <button id="breaktime">Break Time</button>
-    
-            <div id="countdown_time">
-                <span id="minute">1</span>
-                <span>:</span>
-                <span id="second">00</span>
+    <div class="total_container">
+        <!-- App's name -->
+        <header>
+            <div class="header_container">
+                <!-- logo -->
+                <div class="logo">
+                    <div class="logo_image">
+                        <img src="https://pomofocus.io/images/icon-white2.png" alt="">
+                    </div>
+                    <div class="logo_content">
+                        <span>Pomofocus</span>
+                    </div>
+                </div>
+                
+                <!-- menu -->
+                <div class="menu">
+                    <button class="menu_item report">
+                        <div class="menu_item--image report_image">
+                            <i class="far fa-chart-bar"></i>
+                            <!-- <img src="https://pomofocus.io/icons/graph-white.png" alt=""> -->
+                        </div>
+                        <div class="menu_item--content report_content">
+                            <span>Report</span>
+                        </div>
+                    </button>
+
+                    <button class="menu_item setting">
+                        <div class="menu_item--image setting_image">
+                            <i class="fas fa-cog"></i>
+                            <!-- <img src="https://pomofocus.io/icons/config-white.png" alt=""> -->
+                        </div>
+                        <div class="menu_item--content setting_content">
+                            <span>Setting</span>
+                        </div>
+                    </button>
+
+                    <button class="menu_item login">
+                        <div class="menu_item--image login_image">
+                            <i class="fas fa-user"></i>
+                            <!-- <img src="https://pomofocus.io/icons/user-white.png" alt=""> -->
+                        </div>
+                        <div class="menu_item--content login_content">
+                            <span>Login</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+
+
+        <!-- CONTAINER -->
+        <div id="container">
+            <!-- NOTICE -->
+            <div id="notice">
+                <div class="notice_content"><span id="finish">Finished: </span> <span class="result_pomodoro" style="color: white;">0</span></div>
             </div>
 
-            <button id="start">START</button>
-            <button id="pause">PAUSE</button>
-            <button id="skip">Skip>></button>
-            
+            <!-- input list -->
+            <div id="add_list">
+                <input id="input" type="text" placeholder="Enter your task ..." >
+                <button id="add_task" class="change-name-add-btn">Add </button>
+            </div>
+
+            <!-- Time -->
+            <div id="time">
+                <button id="pomodoro">Pomodoro</button>
+                <button id="breaktime">Break Time</button>
+        
+                <div id="countdown_time">
+                    <span id="minute">1</span>
+                    <span>:</span>
+                    <span id="second">00</span>
+                </div>
+
+                <button id="start">START</button>
+                <button id="pause">PAUSE</button>
+                <button id="skip">Skip>></button>
+                
+            </div>
+
+            <!-- Task -->
+            <div id="task">
+                <!-- Filter -->
+                <select class="filter">
+                    <option value="all">All</option>
+                    <option value="done">Done</option>
+                    <option value="undone">Un done</option>
+                </select>
+
+                <h4>___TASK LIST___</h4>
+
+                <ul class="to-do-list"></ul>
+                
+            </div>
         </div>
 
-        <!-- Task -->
-        <div id="task">
-            <h4 style="color:  rgb(207, 178, 14);">___TASK LIST___</h4>
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer_container">
+                <div class="footer_menu">
+                    <a href="" class="footer_link">Home</a>
+                    <a href="" class="footer_link">Privacy</a>
+                    <a href="" class="footer_link">Contact</a>
+                    <a href="" class="footer_link">Simple Page</a>
 
-            <ul class="to-do-list"></ul>
-        </div>
+                </div>
+                <div class="footer_image">
+                    <a href=""><img src="https://pomofocus.io/icons/facebook.png" alt=""></a>
+                    <a href=""><img src="https://pomofocus.io/icons/twitter.png" alt=""></a>
+                    <a href=""><img src="https://pomofocus.io/icons/stripe-climate-badge.png" alt=""></a>
+                </div>
+                <p>Made with &lt;3 by <a href="" >Khoa</a></p>
+                <div class="footer_copyright">©Pomofocus 2023. All Rights Reserved.</div>
+            </div>
+        </footer>
     </div>
 
     <script src="./script.js"></script>

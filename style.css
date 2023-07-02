@@ -1,159 +1,507 @@
-body{
-    background-color: #3b6b9b;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+/* Variable color */
+:root{
+    --font_family: 'Josefin Sans', sans-serif;
+
+    --light_color: rgba(255, 255, 255, 0.1);
+    --white: white;
+    --light_green: rgb(81, 138, 88);
+    --light_blue: rgb(56, 133, 138);
+    --dark_tomato: rgb(170, 30, 5);
+    --black: black;
+
+    --border_color: rgb(85, 85, 85, 0.1);
+    --dark_seting_color: rgba(85, 85, 85, 0.5);
+    --setting_color:rgb(85, 85, 85);
+}
+*{
     box-sizing: border-box;
 }
-
-.color{
-    background-color: rgb(138, 83, 114);
-}
-
-/*======= Flex notice and input_list ========*/
-#flex{
-    display: flex;
-    margin-top: 60px;
-}
-
-/*====== NOTICE =======*/
-#notice{
-    width: 15%;
-    background-color: #173451;
-    /* border: 1px solid #04223d; */
-    margin-left: 235px;
-    border-radius: 4px;
-    text-align: center;
-    color: rgb(207, 178, 14);
+/* ===== BODY ===== */
+body{
+    background-color: var(--light_blue);
+    font-family: var(--font_family);
+    box-sizing: border-box;
+    font-size: large;
     font-weight: bold;
-    font-size: 20px;
+    transition: 0.9s;
+    position: relative;
 }
 
-#finish{
-    margin: 8px;
+/* Total CONTAINER (big) */
+.total_container{
+    width: 100%;
 }
 
-
-/*======= input list =======*/
-#input{
-    border: none;
-    background-color: #173451;
-    padding: 11px;
-    margin-left: 152px;
-    width: 510px;
-    border-radius: 2px;
-    color: white;
-}
-
-#add_list{
-    margin-bottom: 0px;
-}
-
-/* nút button add task */
-#add_task:hover, .change:hover{
-    color: rgb(207, 178, 14);
-    border-color: rgb(207, 178, 14);
-    background-color: #083a6b;
+a{
+    text-decoration: none;
 }
 
 
-/* CONTAINER */
-#container{
-    display: flex;
-    color: white;
-    justify-content: space-between;
+
+/* ======= HEADER ====== */
+header{
     width: 80%;
     margin: 0 auto;
-    margin-top: 20px;
+    border-bottom: 1px solid var(--light_color);
+    position: relative;
+}
+/* Header logo */
+header .header_container{
+    display: flex;
+    justify-content: space-between;
+}
+
+header .header_container .logo{
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+ 
+header .header_container .logo .logo_image{
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header .header_container .logo .logo_image img{
+    width: 100%;
+}
+
+header .header_container .logo .logo_content{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    /* align-items: flex-end; */
+    /* padding-top: 4px; */
+    color: var(--white);
+}
+
+/* header menu */
+.menu .menu_item{
+    display: inline-flex;
+    justify-content: center;
+    padding: 5px 0px;
+    background-color: var(--light_color);
+    margin-left: 20px;
+}
+.menu .menu_item:hover{
+    background-color: rgba(255, 255, 255, 0.35);
+    transition: all 0.3s;
+}
+
+.menu .menu_item .menu_item--image{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-left: 5px;
+}
+.menu .menu_item .menu_item--image img{
+    width: 100%;
+}
+
+.menu .menu_item .menu_item--content{
+    color: var(--white);
+}
+
+
+/* ======= Absolute SETTING Timeer when click it =========*/
+.form_setting{
+    width: 40%;
+    margin: 0 auto;
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 5px;
+    color: var(--setting_color);
+    overflow: auto;
+
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+}
+
+/* all h4 card have margin: 0 defaultly */
+.form_setting h4{
+    margin: 0;
+}
+.form_setting .form_setting--head .fa-times{
+    cursor: pointer;
+}
+.form_setting .fa-times:hover {
+    color: rgb(193, 6, 6);
+}
+
+/* form setting head */
+.form_setting .form_setting--head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 20px 0;
+    border-bottom: 1px solid var(--border_color);
+    margin-bottom: 10px;
+}
+
+
+.form_setting .form_setting--head h4{
+    width: 50%;
+    color: var(--setting_color);
+}
+
+
+/* Form setting Timer */
+.form_setting .form_setting--timer{
+    border-bottom: 1px solid var(--border_color);
+    margin-bottom: 20px;
+}
+
+.form_setting .form_setting--timer .timer_clock{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    color: var(--dark_seting_color);
+}
+
+.form_setting .form_setting--timer .timer_clock h4{
+    padding-top: 5px;
+    margin: 0 0 0 5px;
+}
+
+.form_setting .form_setting--timer h4{
+    margin: 0px 0 10px 0;
+}
+
+.form_setting .form_setting--timer .set_time{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.form_setting .form_setting--timer .set_time_item{
+    width: 40%;
+}
+
+.form_setting .form_setting--timer .set_time_item input{
+    width: 100%;
+    min-width: 60px;
+    display: inline-block;
+    padding: 10px;
+    color: var(--dark_seting_color);
+    border: none;
+    background-color: rgba(85, 85, 85, 0.15);
+    outline: none;
+    border-radius: 5px;
+}
+
+
+/* Toggle btn */
+.form_setting .form_setting--timer .auto_start{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form_setting .form_setting--timer .auto_start h4{
+    margin: 0;
+}
+
+.form_setting .form_setting--timer .auto_start .toggle_btn{
+    width: 60px;
+    height: 32px;
+    background-color: transparent;
+    position: relative;
+}
+
+.form_setting .form_setting--timer .auto_start .toggle_btn .toggle_btn--before{
+    position: absolute;
+
+    background-color: var(--dark_seting_color);
+    border-radius: 50px;
+    border-radius: 50px;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.3s;
+}
+
+.form_setting .form_setting--timer .auto_start .toggle_btn .toggle_btn--before::before{
+    content: '';
+    position: absolute;
+
+    width: 28px;
+    height: 28px;
+    background-color: var(--white);
+    border-radius: 50px;
+    left: 2px;
+    top: 2px;
+    transition: 0.3s;
+}
+
+.form_setting .form_setting--timer .auto_start .toggle_btn .toggle_btn--cirle{
+    display: none;
+}
+
+.form_setting .form_setting--timer .auto_start .toggle_btn .toggle_btn--cirle:checked + .toggle_btn--before {
+    background-color: var(--light_blue);
+    transition: 0.3s;
+}
+
+.form_setting .form_setting--timer .auto_start .toggle_btn .toggle_btn--cirle:checked + .toggle_btn--before::before {
+    left: 30px;
+    transition: 0.3s;
+}
+
+/* Setting task */
+.form_setting .setting_task{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    color: var(--dark_seting_color);
+    font-weight: bold;
+}
+
+.form_setting .setting_task h4{
+    padding-top: 5px;
+    margin: 0 0 0 5px;
+}
+
+/* Setting sound */
+.form_setting .setting_sound{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    color: var(--dark_seting_color);
+    font-weight: bold;
+}
+
+.form_setting .setting_sound h4{
+    padding-top: 5px;
+    margin: 0 0 0 5px;
+}
+
+
+
+
+
+
+
+/* ==== end header =====*/
+
+/* CONTAINER   (set Grid)*/ 
+#container{
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-template-rows: auto auto;
+    gap: 2px 20px;
+
+    color: white;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+/*====== NOTICE and INPUT=======*/
+#notice{
+    grid-area: 1/1/2/2;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 4px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    height: fit-content;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notice .notice_content{
+    width: 100%;
+}
+
+/*======= input list =======*/
+#add_list{
+    grid-area: 1/2/2/3;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* button add task */
+#add_list #add_task , .change-name-add-btn{
+    width: 20%;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0px;
+    padding: 15px;
+    border-radius: 0px 5px 5px 0px;
+    border: none;
+}
+#add_list #add_task:hover, .change-name-add-btn:hover{
+    color: var(--white);
+    /* border-color: var(--white); */
+    background-color: rgba(255, 255, 255, 0.35);
+    transition: all 0.3s;
+}
+
+#add_list #input{
+    width: 80%;
+    border: none;
+    background-color: var(--light_color);
+    padding: 12px;
+    border-radius: 5px 0 0 5px;
+    color: white;
+}
+
+#add_list #input:focus{
+    outline: none;
+    font-family: var(--font_family);
+    font-size: 18px;
+}
+
+::placeholder{
+    color: inherit;
+    font-size: large;
+    font-family: var(--font_family);
 }
 
 
 /* COUNTDOWN_TIME */
 #countdown_time{
     font-weight: bold;
-    font-size: 60px;
-    margin: 40px 0px 40px 0px;
+    font-size: 70px;
+    margin: 25px 0px 25px 0px;
 }
-
 
 /* BUTTON */
 button{
-    background-color: #a9adb1;
+    background-color: inherit;
+    color: var(--white);
     border: none;
+    outline: none;
     padding: 10px;
     border-radius: 4px;
     margin: 5px;
     font-weight: bold;
     cursor: pointer;
-    border: 1px solid #a9adb1;
+    border: 1px solid transparent;
+    font-family: var(--font_family);
+    font-size: large;
 }
 button:hover{
-    background-color: transparent;
-    border: 1px solid #a9adb1;
-    color: white;
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: all 0.3s;;
+    /* border: 1px solid var(--white); */
+    color: var(--white);
     font-weight: bold;
+    transition: all 0.2s;
 }
 
 
-/* ======= TIME ========   (set mac dinh chieu cao) */
+/* ======= TIME ========   (set Default for height) */
 #time{
-    width: 35%;
-    background-color: #173451;
+    grid-area: 2/1/3/2;
+    background-color: var(--light_color);
     border-radius: 5px;
     padding: 15px;
-    height: 250px;          
     text-align: center;
+    /* Default for height */
+    height: 250px;          
 } 
 
 /* Button Start, Pause, Skip */
 #start , #pause{
-    width: 70px;
+    width: fit-content;
     display: inline-block;
 }
 #start:hover , #pause:hover{
-    background-color:rgb(215, 70, 70);
-    color: black;
+    background-color: rgba(255, 255, 255, 0.35);
+    transition: all 0.3s;;
+    color: var(--white);
 }
 #skip{
     padding: 5px;
+    background-color: inherit;
 }
 #skip:hover{
     color: black;
-    background-color: #b6c0cc;
+    background-color: inherit;
+    border: 1px solid transparent;
 }
 
 
-/* ======= TASK =======   (khong mac dinh chieu cao)*/
+/* ======= TASK =======   (Not set Default for height)*/
 #task{
-    width: 55%;
-    background-color: #173451;
+    position: relative;
+    grid-area: 2/2/3/3;
+    background-color: var(--light_color);
     border-radius: 5px;
     padding: 15px;
 }
 
-h4{
+#task h4{
     font-size: 20px;
     text-align: center;
     margin-top: 0px;
     margin-bottom: 10px;
 }
 
-#list{
+#task #to-do-list{
     margin-top: 12px;
     margin-bottom: 0px;
 }
 
+/* ======= Absolute FILTER ======= */
+.filter{
+    position: absolute;
+    top: 0;
+    right: 0;
+    outline: none;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 0 5px 0 0;
+    width: 20%;
+    padding: 5px;
+    font-family: var(--font_family);
+    overflow: hidden;
+}
+.filter:hover{
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.filter option{
+    font-weight: 500;
+}
+
+/* end #task */
 
 /* =================== CSS style for some card items that created by Javascript ======================= */
+/* ====== Change color ====== */
+.color{
+    background-color: var(--light_green);
+    transition: all 1.5s;
+}
+
 ul{
     padding-left: 0px;
 }
 
-li{
+ul li{
     padding-left: 5px;
     color: black;
     display: flex;
     justify-content: space-between;
     list-style: none;
-    background-color: #9aa6b3;
+    background-color: var(--light_color);
     border-radius: 5px;
     margin-bottom: 1px;
     word-break: break-word;
@@ -165,14 +513,24 @@ li span{
     align-items: center ;
 }
 
+li span.edit{
+    margin-right: -35px;
+    margin-left: -30px;
+    padding: 10px 8px;
+}   
+
+li span.delete{
+    padding: 10px;
+}
+
 .content{
-    width: 79%;
+    width: 75%;
 }
 
 .pointFinish{
     font-weight: bold;
     color: rgb(158, 65, 49);
-    background-color: rgb(184, 161, 132);
+    background-color: var(--light_color);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -195,23 +553,82 @@ span{
 
 /* When click on Item */
 .chooseItem{
-    background-color: #3b6b9b;
+    background-color: rgba(255, 255, 255, 0.4);
 }
 
 /* When completed work */
 .completeItem{
     text-decoration: line-through;
+    color: rgb(205, 37, 8);
 }
 
 
 /*======== Time ======= */
 .active_PomodoroAndBreakTime {
-    background-color: transparent;
-    border-color: tomato;
-    color: tomato;
+    background-color: rgba(255, 255, 255, 0.3);
+    /* border: 0.2px solid var(--dark_tomato); */
+    color: var(--dark_tomato);
 }
 .active_PomodoroAndBreakTime:hover {
-    background-color: transparent;
-    border-color: tomato;
-    color: tomato;
+    background-color: rgba(255, 255, 255, 0.35);
+    transition: all 0.3s;;
+    border-color: var(--dark_tomato);
+    color: var(--dark_tomato);
+}
+
+
+
+
+
+/* ===== FOOTER ===== */
+footer{
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 10%;
+    font-size: 1rem;
+}
+
+footer a{
+    color: rgba(255, 255, 255, 0.9);
+}
+
+footer a:hover{
+    color: inherit;
+}
+
+.footer_container{
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+    border-top: 2px solid var(--light_color);
+}
+
+.footer_container .footer_link{
+    text-transform: uppercase;
+    padding: 8px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.footer_container .footer_image img{
+    min-width: 40px;
+    width: 40px;
+    min-height: 40px;
+    height: 40px;
+}
+
+
+
+
+
+/* displayBlock */
+.display_Block{
+    display: block;
+    transition: 0.5s;
+    z-index: 1;
+}
+
+/* Position Fixed */
+.position_fixed{
+    position: fixed;
 }
