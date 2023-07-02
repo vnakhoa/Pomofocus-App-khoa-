@@ -477,11 +477,7 @@ skip_Btn.addEventListener('click', ()=> {
 document.querySelector(".setting").addEventListener('click', openSetting);
 
 function openSetting() {
-    if(document.querySelector('.display_Block')) {
-        document.querySelector('.display_Block').classList.remove('display_Block');
-    }
-    
-    document.querySelector('.form_setting').classList.add('display_Block');
+    document.querySelector('.form_setting').classList.toggle('display_Block');
 
     // add position fixed for card .total_container
     document.querySelector('.total_container').classList.add("position_fixed");
@@ -536,3 +532,22 @@ function filterTodoList(){
             break;
     }
 }
+
+
+// Click to set sound
+document.querySelector('.alarm_sound_dropdown').addEventListener('click', ()=>{
+    document.querySelector('.list_sound').classList.toggle('display_Block');
+    
+})
+
+// Click to choose Alarm Sound
+let listSound = document.querySelector('.list_sound').childNodes;
+function getValue(sound){
+    document.querySelector('.select_sound').value = sound;
+}
+
+// listSound.forEach((sound, i) =>{
+//     sound.addEventListener('click', ()=>{
+//         document.querySelector('.select_sound').value = 
+//     })
+// })
