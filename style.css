@@ -303,7 +303,6 @@ header .header_container .logo .logo_content{
     width: 40%;
     height: 40px;
     position: relative;
-    pointer-events: none;
 }
 
 .form_sound .alarm_sound_dropdown .select_sound{
@@ -325,10 +324,12 @@ header .header_container .logo .logo_content{
     left: 0;
     right: 0;
     bottom: 0;  
+    z-index: -1;
+    /* cursor: pointer; */
 }
 
-.form_sound .alarm_sound_dropdown .select_sound:hover{
-    background-color: rgba(85, 85, 85, 0.3);
+.form_sound .alarm_sound_dropdown:hover{
+    background-color: rgba(85, 85, 85, 0.2);
 }
 
 .form_sound .alarm_sound_dropdown::before{
@@ -353,22 +354,47 @@ header .header_container .logo .logo_content{
     position: absolute;
     top: 41px;
     width: 100%;
-    background-color: var(--border_color);
+    background-color: var(--white);
 
     display: none;
 }
-
 
 .form_sound .alarm_sound_dropdown .list_sound div{
     padding: 5px;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: 500;
 }
 
 .form_sound .alarm_sound_dropdown .list_sound div:hover{
     background-color: var(--dark_seting_color);
 }
 
+/* Slide Sound */
+.slide__sound{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+/* Cho thanh trượt */
+.slider{
+    opacity: 1;
+    appearance: none;
+    background-color: var(--dark_seting_color);
+    border-radius: 10px;
+    height: 6px;
+    transition: 0.6s;
+}
+
+/* Cho nút trượt */
+.slider::-webkit-slider-thumb{
+    background-color: gray;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    appearance:var(--dark_seting_color);
+}
 
 
 
