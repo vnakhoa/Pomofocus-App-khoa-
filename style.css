@@ -104,7 +104,7 @@ header .header_container .logo .logo_content{
 .menu .menu_item .menu_item--content{
     color: var(--white);
 }
-
+/* end headder */
 
 /* ======= Absolute SETTING Timeer when click it =========*/
 .form_setting{
@@ -377,7 +377,7 @@ header .header_container .logo .logo_content{
     align-items: center;
 }
 
-/* Cho thanh trượt */
+/* Cho thanh trượt sound */
 .slider{
     opacity: 1;
     appearance: none;
@@ -387,13 +387,178 @@ header .header_container .logo .logo_content{
     transition: 0.6s;
 }
 
-/* Cho nút trượt */
+/* Cho nút trượt sound*/
 .slider::-webkit-slider-thumb{
-    background-color: gray;
+    background-color: white;
+    box-shadow: 1px 1px 5px 1px gray;
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    appearance:var(--dark_seting_color);
+    appearance: none;
+}
+
+/* ====== Repeat sound ====== */
+.repeat_sound{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.repeat_sound p{
+    display: inline-block;
+    margin-right: 5px;
+}
+.repeat_sound input{
+
+    width: 30%;
+    min-width: 60px;
+    height: fit-content;
+    display: block;
+    padding: 10px;
+    color: var(--dark_seting_color);
+    border: none;
+    background-color: rgba(85, 85, 85, 0.15);
+    outline: none;
+    border-radius: 5px;
+}
+
+/* ===== Ticking Sound =======*/
+.setting_ticking_sound{
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.setting_ticking_sound .ticking_sound_main{
+    display: flex;
+    justify-content: space-between;
+}
+
+.setting_ticking_sound .ticking_sound_dropdown{
+    width: 40%;
+    height: 40px;
+    position: relative;
+}
+
+.setting_ticking_sound .ticking_sound_dropdown .select_ticking_sound{
+    font-family: var(--font_family);
+    font-size: 18px;
+    width: 100%;
+    height: 40px;
+    min-width: 60px;
+    display: block;
+    padding: 5px;
+    color: black;
+    border: none;
+    background-color: rgba(85, 85, 85, 0.15);
+    outline: none;
+    border-radius: 5px;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;  
+    z-index: -1;
+    /* cursor: pointer; */
+}
+
+.setting_ticking_sound .ticking_sound_dropdown:hover{
+    background-color: rgba(85, 85, 85, 0.2);
+}
+
+.setting_ticking_sound .ticking_sound_dropdown::before{
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    left: 85%;
+    top: 50%;
+    transform: translateY(-75%) rotateZ(45deg);
+    border: 2px solid var(--setting_color);
+    border-left: transparent;
+    border-top: transparent;
+    z-index: 5;
+    padding: 2px;
+    margin-right: 2px;
+    cursor: pointer;
+    pointer-events: visible;
+}
+
+.list_ticking_sound{
+    position: absolute;
+    top: 41px;
+    width: 100%;
+    background-color: var(--white);
+
+    display: none;
+}
+
+.setting_ticking_sound .ticking_sound_dropdown .list_ticking_sound div{
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.setting_ticking_sound .ticking_sound_dropdown .list_ticking_sound div:hover{
+    background-color: var(--dark_seting_color);
+}
+
+
+/* ----- Slide Ticking ---- */
+.slide__ticking-sound{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+/* Cho thanh trượt sound */
+.slider_ticking{
+    opacity: 1;
+    appearance: none;
+    background-color: var(--dark_seting_color);
+    border-radius: 10px;
+    height: 6px;
+    transition: 0.6s;
+}
+
+/* Cho nút trượt sound*/
+.slider_ticking::-webkit-slider-thumb{
+    background-color: white;
+    box-shadow: 1px 1px 5px 1px gray;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    appearance: none;
+}
+
+/* ======= Setting theme ======== */
+.form__theme{
+    margin-top: 20px;
+}
+
+.form__theme .form__theme--logo{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    color: var(--dark_seting_color);
+    font-weight: bold;
+}
+
+.form__theme .form__theme--logo .image__theme{
+    width: 20px;
+    height: 20px;
+}
+
+.form__theme .form__theme--logo .image__theme img{
+    width: 100%;
+    color: var(--dark_seting_color);
+}
+
+.form__theme .form__theme--logo h4{
+    padding-top: 5px;
+    margin: 0 0 0 3px;
 }
 
 
@@ -403,7 +568,8 @@ header .header_container .logo .logo_content{
 
 
 
-/* ==== end header =====*/
+
+/* ==== End absolute Setting =====*/
 
 /* CONTAINER   (set Grid)*/ 
 #container{

@@ -17,7 +17,7 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script> 
 </head>
 <body>
-    <!-- Form Seting -->
+    <!-- Form Seting absolute-->
     <div class="form_setting">
         <!-- name setting and close button -->
         <div class="form_setting--head">
@@ -77,7 +77,7 @@
             </div>
         </div>
     
-        <!-- Setting sound -->
+        <!-- Setting sound (Alarm sound)-->
         <div class="form_sound">
             <div class="setting_sound">
                 <i class="fas fa-volume-up"></i>
@@ -88,11 +88,11 @@
                 <div class="alarm_sound_dropdown">
                     <input class="select_sound" placeholder="Select sound" readonly>
                     <div class="list_sound">
-                        <div onclick="getValue('Bell')">Bell</div>
-                        <div onclick="getValue('Bird')">Bird</div>
-                        <div onclick="getValue('Digital')">Digital</div>
-                        <div onclick="getValue('Kitchen')">Kitchen</div>
-                        <div onclick="getValue('Wood')">Wood</div>
+                        <div onclick="getValueAlarm('Bell')">Bell</div>
+                        <div onclick="getValueAlarm('Bird')">Bird</div>
+                        <div onclick="getValueAlarm('Digital')">Digital</div>
+                        <div onclick="getValueAlarm('Kitchen')">Kitchen</div>
+                        <div onclick="getValueAlarm('Wood')">Wood</div>
                     </div>
                 </div>
             </div>
@@ -103,8 +103,56 @@
             <span id="value_sound">Value: </span>
             <input type="range" min="1" max="100" value="0" class="slider" id="myRange">
         </div>
+
+        <!-- repeat -->
+        <div class="repeat_sound">
+            <p>repeat</p>
+            <input type="number" min="0" step="1" value="0">
+        </div>
+
+
+        <!-- Ticking Sound -->
+        <div class="setting_ticking_sound">
+            <div class="ticking_sound_main">
+                <h4 class="ticking_sound">Ticking Sound</h4>
+                <div class="ticking_sound_dropdown">
+                    <input class="select_ticking_sound" placeholder="Select sound" readonly>
+                    <div class="list_ticking_sound">
+                        <div onclick="getValueTicking('None')">None</div>
+                        <div onclick="getValueTicking('Tickking Fast')">Tickking Fast</div>
+                        <div onclick="getValueTicking('Ticking Slow')">Ticking Slow</div>
+                        <div onclick="getValueTicking('White Noise')">White Noise</div>
+                        <div onclick="getValueTicking('Brown Noise')">Brown Noise</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide ticking -->
+        <div class="slide__ticking-sound">
+            <span id="value_ticking-sound">Value: </span>
+            <input type="range" min="1" max="100" value="0" class="slider_ticking" id="myRange_ticking">
+        </div>
+
+        <!-- setting theme -->
+        <div class="form__theme">
+            <div class="form__theme--logo">
+                <!-- <i class="fas fa-volume-up"></i> -->
+                <div class="image__theme">
+                    <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQqtypqNXu7lX7OL4fRGO2qvO7CM5-rhOyR_xitHRzQMveQpVrf" alt="">
+                </div>
+                <h4>SOUND</h4>
+            </div>
+        </div>
+
+
     </div>
 
+
+
+
+
+    <!-- Main total-container -->
     <div class="total_container">
         <!-- App's name -->
         <header>
@@ -160,7 +208,7 @@
         <div id="container">
             <!-- NOTICE -->
             <div id="notice">
-                <div class="notice_content"><span id="finish">Finished: </span> <span class="result_pomodoro" style="color: white;">0</span></div>
+                <div class="notice_content"><span id="finish">Finished: </span> <span class="result_pomodoro" style="color: white;"></span></div>
             </div>
 
             <!-- input list -->
@@ -175,9 +223,9 @@
                 <button id="breaktime">Break Time</button>
         
                 <div id="countdown_time">
-                    <span id="minute">1</span>
+                    <span id="minute"></span>
                     <span>:</span>
-                    <span id="second">00</span>
+                    <span id="second"></span>
                 </div>
 
                 <button id="start">START</button>
@@ -196,7 +244,8 @@
                 </select>
 
                 <h4>___TASK LIST___</h4>
-
+                
+                <!-- Task list -->
                 <ul class="to-do-list"></ul>
                 
             </div>

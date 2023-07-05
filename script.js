@@ -534,20 +534,24 @@ function filterTodoList(){
 }
 
 
-// Click to set sound
+// Click to set Alarm sound
 document.querySelector('.alarm_sound_dropdown').addEventListener('click', ()=>{
     document.querySelector('.list_sound').classList.toggle('display_Block');
     
 })
 
-// Click to choose Alarm Sound
-let listSound = document.querySelector('.list_sound').childNodes;
-function getValue(sound){
+// onClick to choose Alarm Sound
+function getValueAlarm(sound){
     document.querySelector('.select_sound').value = sound;
 }
 
-// listSound.forEach((sound, i) =>{
-//     sound.addEventListener('click', ()=>{
-//         document.querySelector('.select_sound').value = 
-//     })
-// })
+// click to set Ticking Sound
+document.querySelector('.ticking_sound_dropdown').addEventListener('click', ()=>{
+    document.querySelector('.list_ticking_sound').classList.toggle('display_Block');
+    
+})
+
+// onClick to choose Ticking Sound
+function getValueTicking(sound){
+    document.querySelector('.select_ticking_sound').value = sound;
+}
