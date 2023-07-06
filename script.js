@@ -38,8 +38,35 @@ function saveItem(){
 }
 saveItem();
 
+// Reset button Save or Add
+function resetAddButton(){
+    if(add_btn.id != 'add_task'){
+        //Rsset id for add_btn if it exit
+        add_btn.id = 'add_task';
+        // set input = "";
+        document.querySelector('#input').value = '';
+        // Reset content of add_Btn card
+        document.querySelector(".change-name-add-btn").innerHTML = 'Add';
+    }
+}
 
-// Click Add 
+// Click AddPlus to open
+document.querySelector('.start_add_item').addEventListener('click', ()=>{
+    document.querySelector('.add_list').classList.add("display_Flex");
+
+    resetAddButton();
+})
+
+// click cancel
+document.querySelector('#cancel').addEventListener('click', ()=> {
+    document.querySelector('.add_list').classList.remove('display_Flex');
+
+    resetAddButton();
+})
+
+
+
+// Click Add to add work
 add_btn.addEventListener('click', ()=> {
     if(input.value != ''){
         if(add_btn.id != 'add_task'){
@@ -120,6 +147,7 @@ function showItems(arrayItem){
 
 
 function deleteItem(){
+
     let del = document.querySelectorAll(".delete");
     del.forEach((tab, i) => {
         tab.addEventListener('click', () => {
@@ -169,9 +197,12 @@ function deleteItem(){
 
 
 function editItem() {
+
     let edit = document.querySelectorAll('.edit');
     edit.forEach((tab, i) => {
         tab.addEventListener('click', ()=> {
+            document.querySelector('.add_list').classList.add("display_Flex");
+
             input.value = arrayStorage[i];
             
             //Set id for add_btn
@@ -310,17 +341,6 @@ function breakTime_Funct() {
     skip_Btn.style.display = 'inline-block';
 };
 
-
-function resetAddButton(){
-    if(add_btn.id != 'add_task'){
-        //Rsset id for add_btn if it exit
-        add_btn.id = 'add_task';
-        // set input = "";
-        document.querySelector('#input').value = '';
-        // Reset content of add_Btn card
-        document.querySelector(".change-name-add-btn").innerHTML = 'Add';
-    }
-}
 
 let countDownTime; //Biến setInterval đếm giờ
 let score;  //Số việc hoàn thành

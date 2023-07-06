@@ -141,7 +141,7 @@
                 <div class="image__theme">
                     <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQqtypqNXu7lX7OL4fRGO2qvO7CM5-rhOyR_xitHRzQMveQpVrf" alt="">
                 </div>
-                <h4>SOUND</h4>
+                <h4>THEME</h4>
             </div>
         </div>
 
@@ -211,10 +211,34 @@
                 <div class="notice_content"><span id="finish">Finished: </span> <span class="result_pomodoro" style="color: white;"></span></div>
             </div>
 
-            <!-- input list -->
-            <div id="add_list">
-                <input id="input" type="text" placeholder="Enter your task ..." >
-                <button id="add_task" class="change-name-add-btn">Add </button>
+            <!-- ADD ITEM BUTTON -->
+            <div id="add_item">
+                <button class="start_add_item"><i class="fas fa-plus-circle"></i> ADD</button>
+                <!-- input list -->
+                <div class="add_list">
+                    <div class="enterTask">
+                        <input id="input" type="text" placeholder="Enter your task ..." >
+                    </div>
+                    <div class="form-group">
+                        <label for="type">About:</label>
+                        <select id="type_task" name="type">
+                            <option value="Prioritize_1">Prioritize_1</option>
+                            <option value="Prioritize_2">Prioritize_2</option>
+                            <option value="Prioritize_3">Prioritize_3</option>
+                            <option value="Another">Do it later</option>
+                        </select>
+                    </div>
+
+                    <div class="input_type_date">
+                        <label for="type_date">Due to:</label>
+                        <input id="input_date" type="date" name="type_date">
+                    </div>
+
+                    <div class="btn_additem">
+                        <button id="cancel">Cancel</button>
+                        <button id="add_task" class="change-name-add-btn">Add </button>
+                    </div>
+                </div>
             </div>
 
             <!-- Time -->
