@@ -68,9 +68,12 @@ document.querySelector('#cancel').addEventListener('click', ()=> {
 
 // Click Add to add work
 add_btn.addEventListener('click', ()=> {
+
     if(input.value != ''){
         if(add_btn.id != 'add_task'){
-            arrayStorage[add_btn.id] = input.value;
+            arrayStorage[add_btn.id].name = input.value;
+            arrayStorage[add_btn.id].prioritize = document.querySelector('#type_task').value;
+            arrayStorage[add_btn.id].due = document.querySelector('#input_date').value;
 
             //Add class ='chooseItem' => Xác định item vừa sửa
             let edit = document.querySelectorAll('.edit');
@@ -100,11 +103,21 @@ add_btn.addEventListener('click', ()=> {
             document.querySelector(".change-name-add-btn").innerHTML = 'Add';
         }
         else{
+            const inputWork = input.value;
+            const prioritize = document.querySelector("#type_task").value;
+            const day = document.querySelector("#input_date").value;
+        
+            const work = {
+                name: inputWork,
+                prioritize: prioritize,
+                due: day,
+            }
+
             arrayFinish.push(0);
 
-            arrayStorage.push(input.value);
+            arrayStorage.push(work);
             arrayItem.push(`<li>
-            <span class="content">${input.value}</span>
+            <span class="content">${work.name}</span>
             <span class="pointFinish">0</span>
             <span class="edit"><i class="fas fa-edit"></i></span>
             <span class="delete"><i class="fas fa-trash-alt"></i></span>
@@ -123,7 +136,8 @@ add_btn.addEventListener('click', ()=> {
     showItems(arrayItem);
     
     // reset Inputbox
-    input.value = ''
+    input.value = '';
+    document.querySelector("#input_date").value = '';
     
 })
 
@@ -203,7 +217,9 @@ function editItem() {
         tab.addEventListener('click', ()=> {
             document.querySelector('.add_list').classList.add("display_Flex");
 
-            input.value = arrayStorage[i];
+            input.value = arrayStorage[i].name;
+            document.querySelector('#type_task').value = arrayStorage[i].prioritize;
+            document.querySelector('#input_date').value = arrayStorage[i].due;
             
             //Set id for add_btn
             add_btn.id = `${i}`;
@@ -237,7 +253,7 @@ function chooseItemToWork() {
                     if(document.querySelector('.to-do-list').childNodes[k].children[0].className.includes('completeItem')){
                         //Add class ='completeItem' for span.content
                         arrayItem[k] = `<li class="chooseItem">
-                        <span class="content completeItem">${arrayStorage[k]}</span>
+                        <span class="content completeItem">${arrayStorage[k].name}</span>
                         <span class="pointFinish">${arrayFinish[k]}</span>
                         <span class="edit"><i class="fas fa-edit"></i></span>
                         <span class="delete"><i class="fas fa-trash-alt"></i></span>
@@ -245,7 +261,7 @@ function chooseItemToWork() {
                     }
                     else{
                         arrayItem[k] = `<li class= "chooseItem">
-                        <span class="content">${arrayStorage[k]}</span>
+                        <span class="content">${arrayStorage[k].name}</span>
                         <span class="pointFinish">${arrayFinish[k]}</span>
                         <span class="edit"><i class="fas fa-edit"></i></span>
                         <span class="delete"><i class="fas fa-trash-alt"></i></span>
@@ -256,7 +272,7 @@ function chooseItemToWork() {
                     if(document.querySelector('.to-do-list').childNodes[k].children[0].className.includes('completeItem')){
                         //Add class ='completeItem' for span.content
                         arrayItem[k] = `<li>
-                        <span class="content completeItem">${arrayStorage[k]}</span>
+                        <span class="content completeItem">${arrayStorage[k].name}</span>
                         <span class="pointFinish">${arrayFinish[k]}</span>
                         <span class="edit"><i class="fas fa-edit"></i></span>
                         <span class="delete"><i class="fas fa-trash-alt"></i></span>
@@ -264,7 +280,7 @@ function chooseItemToWork() {
                     }
                     else{
                         arrayItem[k] = `<li>
-                        <span class="content">${arrayStorage[k]}</span>
+                        <span class="content">${arrayStorage[k].name}</span>
                         <span class="pointFinish">${arrayFinish[k]}</span>
                         <span class="edit"><i class="fas fa-edit"></i></span>
                         <span class="delete"><i class="fas fa-trash-alt"></i></span>
@@ -425,6 +441,8 @@ start_Btn.addEventListener('click', ()=> {
         }
     }, 1000);
 
+    document.querySelector('.add_list').classList.remove('display_Flex');
+
     // Reset add button
     resetAddButton();
 })
@@ -433,14 +451,13 @@ start_Btn.addEventListener('click', ()=> {
 function complete() {
     for(let i = 0; i < arrayItem.length; i++) {
         if(document.querySelector('.to-do-list').childNodes[i].className === 'chooseItem'){
-
             let countComplete = arrayFinish[i];
             countComplete++;
             arrayFinish[i] = countComplete;
             
             //Add class ='completeItem' for span.content
             arrayItem[i] = `<li class="chooseItem">
-            <span class="content completeItem">${arrayStorage[i]}</span> 
+            <span class="content completeItem">${arrayStorage[i].name}</span> 
             <span class="pointFinish">${arrayFinish[i]}</span>
             <span class="edit"><i class="fas fa-edit"></i></span>
             <span class="delete"><i class="fas fa-trash-alt"></i></span>
@@ -451,11 +468,23 @@ function complete() {
     
     localStorage.setItem('all_items', JSON.stringify(arrayItem));
     
-
     showItems(arrayItem);
     
     localStorage.setItem('i', todo.innerHTML);
 }
+
+// Click done now
+document.querySelector('#done_now').addEventListener('click', ()=>{
+    complete();
+    if(document.querySelector('.chooseItem')){
+        score = Number(document.querySelector(".result_pomodoro").innerHTML);
+        score++;
+        localStorage.setItem('score', JSON.stringify(score));
+
+        document.querySelector(".result_pomodoro").innerHTML = `${score}`;
+    }
+
+});
 
 
 //Click PAUSE

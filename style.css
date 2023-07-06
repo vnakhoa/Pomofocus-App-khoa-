@@ -631,7 +631,10 @@ header .header_container .logo .logo_content{
 
 /*======= input list =======*/
 .add_list{
-    /* position: relative; */
+    /* position: absolute;
+    left: 0;
+    top:100%;
+    z-index: 5; */
     flex-direction: column;
     /* justify-content: space-between; */
     /* align-items: end; */
@@ -648,7 +651,7 @@ header .header_container .logo .logo_content{
 .form-group, .input_type_date{
     margin-left: 15px;
 }
-.add_list .form-group select{
+.add_list .form-group #type_task{
     outline: none;
     border: none;
     border-radius: 5px;
@@ -680,11 +683,16 @@ header .header_container .logo .logo_content{
     display: flex;
     align-items: center;
     justify-content: end;
+    border-radius: 0 0 5px 5px;
+    margin-top: 15px;
+    background-color: rgb(238, 233, 233);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
 }
 
 .add_list #add_task, .change-name-add-btn{
     width: 20%;
-    background-color: rgb(65, 63, 63);
+    background-color:rgb(40, 38, 38);
     margin: 0px;
     padding: 10px;
     border-radius: 5px;
@@ -695,27 +703,42 @@ header .header_container .logo .logo_content{
 .add_list #add_task:hover, .change-name-add-btn:hover{
     color: var(--white);
     /* border-color: var(--white); */
-    background-color: rgb(97, 89, 89);
+    background-color: rgb(69, 62, 62);
     transition: all 0.3s;
 }
 
-.add_list #cancel {
+.add_list #cancel{
     color: rgb(65, 63, 63);
+    padding: 2px;
+    background-color: transparent;
 }
 .add_list #cancel:hover{
-    color:  rgb(83, 76, 76);
+    color:  rgb(5, 5, 5);
+}
+
+.add_list #done_now{
+    text-align: left;
+    margin-left: 14px;
+    padding: 0;
+    color: rgb(65, 63, 63);;
+    margin-right: auto;
+    background-color: transparent;
+}
+.add_list #done_now:hover{
+    color: rgb(179, 32, 6);
 }
 
 
 .add_list #input{
     width: 100%;
     border: none;
-    border-bottom: 1px solid var(--setting_color);
+    border-bottom: 1px solid rgba(63, 56, 56, 0.2);
     padding: 15px;
     border-radius: 5px 5px 5px 5px;
-    color: var(--setting_color);
+    color: var(--black);
+    font-size: 16px;
     margin-bottom: 15px;
-    font-weight: 800;
+    font-weight: 600    ;
     height: fit-content;
 }
 
@@ -803,13 +826,22 @@ button:hover{
 }
 
 
-/* ======= TASK =======   (Not set Default for height)*/
-#task{
+/* ======= TASK =======   (set min heigth 250px for #task)*/
+.task_and_input{
     position: relative;
     grid-area: 2/2/3/3;
+    margin-top: -2px;
+}
+
+#task{
     background-color: var(--light_color);
     border-radius: 5px;
     padding: 15px;
+    position: relative;
+    margin-top: 2px;
+    
+    /* min height */
+    min-height: 250px;
 }
 
 #task h4{
