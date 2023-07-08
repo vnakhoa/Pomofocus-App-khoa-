@@ -222,7 +222,7 @@ header .header_container .logo .logo_content{
     position: relative;
 }
 
-.auto_start .toggle_btn .toggle_btn--before{
+.toggle_btn--before{
     position: absolute;
 
     background-color: var(--dark_seting_color);
@@ -236,8 +236,8 @@ header .header_container .logo .logo_content{
     transition: 0.3s;
 }
 
-.auto_start .toggle_btn .toggle_btn--before::before{
-    content: '';
+.before_break, .before_pomodoro, .before_switch, .before_darkmode{
+    /* content: ''; */
     position: absolute;
 
     width: 28px;
@@ -247,22 +247,26 @@ header .header_container .logo .logo_content{
     left: 2px;
     top: 2px;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .auto_start .toggle_btn .toggle_btn--cirle{
     display: none;
 }
 
-.auto_start .toggle_btn .toggle_btn--cirle:checked + .toggle_btn--before {
+/* toggle color */
+.toggle_color{
     background-color: var(--light_blue);
     transition: 0.3s;
 }
 
-.auto_start .toggle_btn .toggle_btn--cirle:checked + .toggle_btn--before::before {
+/* Toggle avtive (nút toggle) */
+.toggle_active{
     left: 30px;
     transition: 0.3s;
 }
 
+/* ================= */
 /* Setting task */
 .form_setting .setting_task{
     display: flex;

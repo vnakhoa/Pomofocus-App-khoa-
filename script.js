@@ -39,6 +39,9 @@ function saveItem(){
 }
 saveItem();
 
+
+
+
 // Reset button Save or Add
 function resetAddButton(){
     if(add_btn.id != 'add_task'){
@@ -61,7 +64,7 @@ document.querySelector('.start_add_item').addEventListener('click', ()=>{
     resetAddButton();
 })
 
-// click cancel
+// click Cancel
 document.querySelector('#cancel').addEventListener('click', ()=> {
     document.querySelector('.add_list').classList.remove('display_Flex');
 
@@ -312,6 +315,8 @@ function chooseItemToWork() {
 
 
 
+
+
 //=========== Time ===========//
 let start_Btn = document.querySelector('#start');
 let pause_Btn = document.querySelector('#pause');
@@ -483,7 +488,6 @@ function complete() {
     
     localStorage.setItem('i', todo.innerHTML);
 }
-
 // Click done now
 document.querySelector('#done_now').addEventListener('click', ()=>{
     complete();
@@ -525,7 +529,6 @@ function unComplete() {
     
     localStorage.setItem('i', todo.innerHTML);
 }
-
 // click Un_done
 document.querySelector("#un_done").addEventListener('click', ()=> {
     unComplete();
@@ -553,7 +556,6 @@ pause_Btn.addEventListener('click', ()=> {
     skip_Btn.style.display = 'inline-block';
     pause_Btn.style.display = 'none';
 })
-
 
 //click SKIP
 skip_Btn.addEventListener('click', ()=> {
@@ -661,6 +663,80 @@ function filterTodoList(){
 }
     
     
+
+
+
+
+//=====-====-====== SETTING ====-===-======//
+let okayBtn = document.querySelector('.btn_okay');
+//click OK
+okayBtn.addEventListener('click', settingForm);
+
+function settingForm() {
+    let autoStart_Breaktime = document.querySelector("#toggle1_input");
+    let autoStart_Pomodoro = document.querySelector("#toggle2_input");
+    let autoStart_Switch = document.querySelector("#toggle3_input");
+    let darkMode = document.querySelector("#toggle_dark-mode");
+
+    let settingForm =  {
+        minutePomodoro: document.querySelector(".set_time_item--minute-pomodoro").value,
+        minuteBreaktime: document.querySelector(".set_time_item--minute-breaktime").value,
+        autoStart_Breaktime: autoStart_Breaktime.checked,
+        autoStart_Pomodoro: autoStart_Pomodoro.checked,
+        autoStart_Switch: autoStart_Switch.checked,
+        darkMode: darkMode.checked,
+        alarmSound: document.querySelector(".select_sound").value,
+        tickingSound: document.querySelector(".select_ticking_sound").value,
+    }
+
+    localStorage.setItem('setting', JSON.stringify(settingForm));
+}
+
+
+// Click btn Toggle auto start Breaktime
+document.querySelector("#toggle1_input").addEventListener('click', ()=>{
+    if(document.querySelector("#toggle1_input").checked){
+        document.querySelector(".break_color").classList.add("toggle_color");
+        document.querySelector(".before_break").classList.add('toggle_active');
+    }
+    else{
+        document.querySelector(".break_color").classList.remove("toggle_color");
+        document.querySelector(".before_break").classList.remove('toggle_active');
+    }
+})
+// Click btn Toggle auto start Pomodoro
+document.querySelector("#toggle2_input").addEventListener('click', ()=>{
+    if(document.querySelector("#toggle2_input").checked){
+        document.querySelector(".pomodoro_color").classList.add("toggle_color");
+        document.querySelector(".before_pomodoro").classList.add('toggle_active');
+    }
+    else{
+        document.querySelector(".pomodoro_color").classList.remove("toggle_color");
+        document.querySelector(".before_pomodoro").classList.remove('toggle_active');
+    }
+})
+// Click btn Toggle auto start Switch
+document.querySelector("#toggle3_input").addEventListener('click', ()=>{
+    if(document.querySelector("#toggle3_input").checked){
+        document.querySelector(".switch_color").classList.add("toggle_color");
+        document.querySelector(".before_switch").classList.add('toggle_active');
+    }
+    else{
+        document.querySelector(".switch_color").classList.remove("toggle_color");
+        document.querySelector(".before_switch").classList.remove('toggle_active');
+    }
+})
+// Click btn Toggle Dark Mode
+document.querySelector("#toggle_dark-mode").addEventListener('click', ()=>{
+    if(document.querySelector("#toggle_dark-mode").checked){
+        document.querySelector(".darkmode_color").classList.add("toggle_color");
+        document.querySelector(".before_darkmode").classList.add('toggle_active');
+    }
+    else{
+        document.querySelector(".darkmode_color").classList.remove("toggle_color");
+        document.querySelector(".before_darkmode").classList.remove('toggle_active');
+    }
+})
     
 // ======== When click Setting =========//
 document.querySelector(".setting").addEventListener('click', openSetting);
@@ -672,16 +748,17 @@ function openSetting() {
     document.querySelector('.total_container').classList.add("position_fixed");
 }
 
-// click (x) or click OK button to close setting form
+
+// ==== click (x) or click OK button to close setting form =====//
 document.querySelector(".fa-times").addEventListener('click', closeFormSetting);
-// document.querySelector('.btn_okay').addEventListener('click', closeFormSetting);
+document.querySelector('.btn_okay').addEventListener('click', closeFormSetting);
 
 function closeFormSetting(){
     document.querySelector('.form_setting').classList.remove('display_Block');
-
     // Remove position fixed for card .total_container
     document.querySelector('.total_container').classList.remove("position_fixed");
 }
+
 
 // Click to set Alarm sound
 document.querySelector('.alarm_sound_dropdown').addEventListener('click', ()=>{
