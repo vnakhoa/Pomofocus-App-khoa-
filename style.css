@@ -8,6 +8,7 @@
     --light_blue: rgb(56, 133, 138);
     --dark_tomato: rgb(170, 30, 5);
     --black: black;
+    --light_red: #c65e5c;
 
     --border_color: rgb(85, 85, 85, 0.1);
     --dark_seting_color: rgba(85, 85, 85, 0.5);
@@ -18,7 +19,8 @@
 }
 /* ===== BODY ===== */
 body{
-    background-color: var(--light_blue);
+    background-color: var(--light_red); 
+
     font-family: var(--font_family);
     box-sizing: border-box;
     font-size: large;
@@ -202,25 +204,25 @@ header .header_container .logo .logo_content{
 
 
 /* Toggle btn */
-.form_setting .form_setting--timer .auto_start{
+.auto_start{
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
 }
 
-.form_setting .form_setting--timer .auto_start h4{
+.auto_start h4{
     margin: 0;
 }
 
-.form_setting .form_setting--timer .auto_start .toggle_btn{
+.auto_start .toggle_btn{
     width: 60px;
     height: 32px;
     background-color: transparent;
     position: relative;
 }
 
-.form_setting .form_setting--timer .auto_start .toggle_btn .toggle_btn--before{
+.auto_start .toggle_btn .toggle_btn--before{
     position: absolute;
 
     background-color: var(--dark_seting_color);
@@ -234,7 +236,7 @@ header .header_container .logo .logo_content{
     transition: 0.3s;
 }
 
-.form_setting .form_setting--timer .auto_start .toggle_btn .toggle_btn--before::before{
+.auto_start .toggle_btn .toggle_btn--before::before{
     content: '';
     position: absolute;
 
@@ -247,16 +249,16 @@ header .header_container .logo .logo_content{
     transition: 0.3s;
 }
 
-.form_setting .form_setting--timer .auto_start .toggle_btn .toggle_btn--cirle{
+.auto_start .toggle_btn .toggle_btn--cirle{
     display: none;
 }
 
-.form_setting .form_setting--timer .auto_start .toggle_btn .toggle_btn--cirle:checked + .toggle_btn--before {
+.auto_start .toggle_btn .toggle_btn--cirle:checked + .toggle_btn--before {
     background-color: var(--light_blue);
     transition: 0.3s;
 }
 
-.form_setting .form_setting--timer .auto_start .toggle_btn .toggle_btn--cirle:checked + .toggle_btn--before::before {
+.auto_start .toggle_btn .toggle_btn--cirle:checked + .toggle_btn--before::before {
     left: 30px;
     transition: 0.3s;
 }
@@ -561,11 +563,72 @@ header .header_container .logo .logo_content{
     margin: 0 0 0 3px;
 }
 
+/* ===== Setting color theme ======= */
+.color_theme{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px
+}
+
+.color_pomodoro, .color_breaktime, .color_blue , .color_green , .color_red{
+    width: 28px;
+    height: 28px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.color_pomodoro{
+    background-color: var(--light_red);
+}
+.color_breaktime{
+    background-color: var(--light_green);
+}
+
+.color_blue{
+    background-color: var(--light_blue);
+}
+.color_green{
+    background-color: var(--light_green);
+}
+.color_red{
+    background-color: var(--light_red);
+}
+
+.color_theme--group , .choose_color{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* choose_color DISPLAY-NONE */
+.choose_color{
+    display: none;
+}
 
 
+/* ====== OK Btn ====== */
+.setting_okay_btn{
+    background-color: rgba(85, 85, 85, 0.15);
+    text-align: right;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
 
+.btn_okay{
+    margin-right: 20px;
+    min-width: 70px;
+    padding: 7px 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(35, 34, 34);
 
-
+}
+.btn_okay:hover{
+    background-color: rgb(24, 23, 23);
+}
 
 
 
@@ -650,7 +713,25 @@ header .header_container .logo .logo_content{
 }
 .form-group, .input_type_date{
     margin-left: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
+
+.add_list .enterTask #input{
+    background-color: rgba(238, 233, 233, 0.3);
+}
+
+.form-group #type_description{
+    flex-grow: 1;
+    margin-right: 15px;
+    font-family: var(--font_family);
+    color: black;
+    font-size: 16px;
+    outline: none;
+    font-weight: 600;
+}
+
 .add_list .form-group #type_task{
     outline: none;
     border: none;
@@ -661,6 +742,7 @@ header .header_container .logo .logo_content{
     font-family: var(--font_family);
     font-size: 15px;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .add_list .input_type_date input{
@@ -675,6 +757,10 @@ header .header_container .logo .logo_content{
     font-weight: 600;
 }
 
+#input_date{
+    cursor: pointer;
+}
+
 
 /* button add task */
 
@@ -682,7 +768,7 @@ header .header_container .logo .logo_content{
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: space-between;
     border-radius: 0 0 5px 5px;
     margin-top: 15px;
     background-color: rgb(238, 233, 233);
@@ -728,6 +814,19 @@ header .header_container .logo .logo_content{
     color: rgb(179, 32, 6);
 }
 
+.add_list #un_done{
+    text-align: left;
+    margin-left: 14px;
+    padding: 0;
+    color: rgb(65, 63, 63);;
+    margin-right: auto;
+    background-color: transparent;
+    flex-grow: 1;
+}
+.add_list #un_done:hover{
+    color: rgb(39, 99, 142);
+}
+
 
 .add_list #input{
     width: 100%;
@@ -738,8 +837,9 @@ header .header_container .logo .logo_content{
     color: var(--black);
     font-size: 16px;
     margin-bottom: 15px;
-    font-weight: 600    ;
     height: fit-content;
+    font-weight: 600;
+    font-family: var(--font_family);
 }
 
 .add_list #input:focus{
@@ -747,14 +847,16 @@ header .header_container .logo .logo_content{
     font-family: var(--font_family);
     font-size: 16px;
     padding: 15px;
+    font-weight: 600;
 }
 
 ::placeholder{
     color: inherit;
     font-size: 16px;
     font-family: var(--font_family);
-    font-weight: 800;
+    font-weight: 600;
     height: fit-content;
+    color: rgb(179, 175, 175);
 }
 
 .form-group{
@@ -867,13 +969,15 @@ button:hover{
     cursor: pointer;
     color: black;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
     border-radius: 0 5px 0 0;
     width: 20%;
     padding: 5px;
     font-family: var(--font_family);
     overflow: hidden;
 }
+
+
 .filter:hover{
     background-color: rgba(255, 255, 255, 0.4);
 }
@@ -934,7 +1038,7 @@ li span.delete{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 5%;
+    min-width: 5%;
 }
 
 span{
@@ -960,6 +1064,7 @@ span{
 .completeItem{
     text-decoration: line-through;
     color: rgb(205, 37, 8);
+    /* color: rgb(255, 255, 255); */
 }
 
 

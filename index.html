@@ -36,11 +36,11 @@
             <div class="set_time">
                 <div class="set_time_item">
                     <label for="">Pomodoro</label> <br>
-                    <input type="number" min="0" step="1" value="1" class="set_time_item--minute">
+                    <input type="number" min="0" step="1" value="1" class="set_time_item--minute-pomodoro">
                 </div>
                 <div class="set_time_item">
                     <label for="">Break Time</label> <br>
-                    <input type="number" min="0" step="1" value="1" class="set_time_item--second">
+                    <input type="number" min="0" step="1" value="1" class="set_time_item--minute-breaktime">
                 </div>
             </div>
     
@@ -134,7 +134,7 @@
             <input type="range" min="1" max="100" value="0" class="slider_ticking" id="myRange_ticking">
         </div>
 
-        <!-- setting theme -->
+        <!-- setting color theme -->
         <div class="form__theme">
             <div class="form__theme--logo">
                 <!-- <i class="fas fa-volume-up"></i> -->
@@ -143,11 +143,37 @@
                 </div>
                 <h4>THEME</h4>
             </div>
+
+            <div class="color_theme">
+                <h4 class="color_theme--content">Color Themes</h4>
+                <div class="color_theme--group">
+                    <div class="color_pomodoro"></div>
+                    <div class="color_breaktime"></div>
+                    <!-- <div class="color_red"></div> -->
+                </div>
+                <div class="choose_color">
+                    <div class="color_blue"></div>
+                    <div class="color_green"></div>
+                    <div class="color_red"></div>
+                </div>
+            </div>
+
+            <div class="auto_start dark_mode">
+                <h4>Dark Mode when running</h4>
+                <div class="toggle_btn">
+                    <input type="checkbox" class="toggle_btn--cirle" id="toggle_dark-mode">
+                    <label for="toggle_dark-mode" class="toggle_btn--before"></label>
+                </div>
+            </div>
         </div>
 
-
+        <!-- Button Save (OK) -->
+        <div class="setting_okay_btn">
+            <button class="btn_okay">OK</button>
+        </div>
     </div>
 
+    <!-- END setting -->
 
 
 
@@ -237,15 +263,20 @@
                 <!-- input list -->
                 <div class="add_list">
                     <div class="enterTask">
-                        <input id="input" type="text" placeholder="Enter your task ..." >
+                        <input id="input" type="text" placeholder="Enter your task here . . ." >
                     </div>
+                    <div class="form-group">
+                        <label for="type_description">Description:</label>
+                        <textarea id="type_description" name="type_description"></textarea>
+                    </div>
+                    
                     <div class="form-group">
                         <label for="type">About:</label>
                         <select id="type_task" name="type">
-                            <option value="Prioritize_1">Prioritize_1</option>
-                            <option value="Prioritize_2">Prioritize_2</option>
-                            <option value="Prioritize_3">Prioritize_3</option>
-                            <option value="Another">Do it later</option>
+                            <option value="prioritize_1">Prioritize_1</option>
+                            <option value="prioritize_2">Prioritize_2</option>
+                            <option value="prioritize_3">Prioritize_3</option>
+                            <option value="another">Do it later</option>
                         </select>
                     </div>
 
@@ -256,18 +287,23 @@
 
                     <div class="btn_additem">
                         <button id="done_now">Done now</button>
+                        <button id="un_done">Un done</button>
                         <button id="cancel">Cancel</button>
                         <button id="add_task" class="change-name-add-btn">Add </button>
                     </div>
                 </div>
-                
+
                 <!-- Task -->
                 <div id="task">
-                    <!-- Filter -->
+                    <!-- Filter done or undone-->
                     <select class="filter">
                         <option value="all">All</option>
                         <option value="done">Done</option>
                         <option value="undone">Un done</option>
+                        <option value="prioritize_1">Prior - 1</option>
+                        <option value="prioritize_2">Prior - 2</option>
+                        <option value="prioritize_3">Prior - 3</option>
+                        <option value="another">Do later</option>
                     </select>
 
                     <h4>___TASK LIST___</h4>
@@ -300,6 +336,6 @@
         </footer>
     </div>
 
-    <script src="./script.js"></script>
+    <script src="./script.js" type="module"></script>
 </body>
 </html>

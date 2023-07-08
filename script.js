@@ -29,9 +29,10 @@ function saveItem(){
 
     //save to-do List
     todo.innerHTML = localStorage.getItem('i');
-    filterTodoList();
+    if(arrayStorage.length > 0){
+        filterTodoList();
+    }
     
-
     deleteItem();
     editItem();
     chooseItemToWork();
@@ -50,9 +51,12 @@ function resetAddButton(){
     }
 }
 
-// Click AddPlus to open
+// Click AddPlus to open form input
 document.querySelector('.start_add_item').addEventListener('click', ()=>{
     document.querySelector('.add_list').classList.add("display_Flex");
+
+    document.querySelector("#type_description").value = '';
+    document.querySelector("#input_date").value = '';
 
     resetAddButton();
 })
@@ -72,6 +76,7 @@ add_btn.addEventListener('click', ()=> {
     if(input.value != ''){
         if(add_btn.id != 'add_task'){
             arrayStorage[add_btn.id].name = input.value;
+            arrayStorage[add_btn.id].description = document.querySelector("#type_description").value;
             arrayStorage[add_btn.id].prioritize = document.querySelector('#type_task').value;
             arrayStorage[add_btn.id].due = document.querySelector('#input_date').value;
 
@@ -79,7 +84,7 @@ add_btn.addEventListener('click', ()=> {
             let edit = document.querySelectorAll('.edit');
             if(edit[add_btn.id].parentElement.children[0].classList.contains('completeItem') == false){
                 arrayItem[add_btn.id] = 
-                `<li class= "chooseItem">    
+                `<li class= "chooseItem ${arrayStorage[add_btn.id].prioritize}">    
                     <span class="content">${input.value}</span>
                     <span class="pointFinish">${arrayFinish[add_btn.id]}</span>
                     <span class="edit"><i class="fas fa-edit"></i></span>
@@ -88,7 +93,7 @@ add_btn.addEventListener('click', ()=> {
             }
             else{
                 arrayItem[add_btn.id] = 
-                `<li class= "chooseItem">    
+                `<li class= "chooseItem ${arrayStorage[add_btn.id].prioritize}">    
                     <span class="content completeItem">${input.value}</span>
                     <span class="pointFinish">${arrayFinish[add_btn.id]}</span>
                     <span class="edit"><i class="fas fa-edit"></i></span>
@@ -104,11 +109,13 @@ add_btn.addEventListener('click', ()=> {
         }
         else{
             const inputWork = input.value;
+            const description = document.querySelector('#type_description').value;
             const prioritize = document.querySelector("#type_task").value;
             const day = document.querySelector("#input_date").value;
         
             const work = {
                 name: inputWork,
+                description: description,
                 prioritize: prioritize,
                 due: day,
             }
@@ -116,7 +123,7 @@ add_btn.addEventListener('click', ()=> {
             arrayFinish.push(0);
 
             arrayStorage.push(work);
-            arrayItem.push(`<li>
+            arrayItem.push(`<li class="${work.prioritize}">
             <span class="content">${work.name}</span>
             <span class="pointFinish">0</span>
             <span class="edit"><i class="fas fa-edit"></i></span>
@@ -138,6 +145,7 @@ add_btn.addEventListener('click', ()=> {
     // reset Inputbox
     input.value = '';
     document.querySelector("#input_date").value = '';
+    document.querySelector("#type_description").value = '';
     
 })
 
@@ -164,7 +172,9 @@ function deleteItem(){
 
     let del = document.querySelectorAll(".delete");
     del.forEach((tab, i) => {
-        tab.addEventListener('click', () => {
+        tab.addEventListener('click', (e) => {
+            e.stopPropagation();
+
             arrayStorage.splice(i, 1);
             localStorage.setItem('items', JSON.stringify(arrayStorage));
 
@@ -196,7 +206,6 @@ function deleteItem(){
 
         // Change select value
         document.querySelector('.filter').value = 'all';
-        localStorage.setItem('saveFilter', 'all');
 
         // Chang save button to Add button if it's exiting
         if(add_btn.id != 'add_task'){
@@ -215,9 +224,11 @@ function editItem() {
     let edit = document.querySelectorAll('.edit');
     edit.forEach((tab, i) => {
         tab.addEventListener('click', ()=> {
+            // show input
             document.querySelector('.add_list').classList.add("display_Flex");
 
             input.value = arrayStorage[i].name;
+            document.querySelector('#type_description').value = arrayStorage[i].description;
             document.querySelector('#type_task').value = arrayStorage[i].prioritize;
             document.querySelector('#input_date').value = arrayStorage[i].due;
             
@@ -252,7 +263,7 @@ function chooseItemToWork() {
                 if(i == k){
                     if(document.querySelector('.to-do-list').childNodes[k].children[0].className.includes('completeItem')){
                         //Add class ='completeItem' for span.content
-                        arrayItem[k] = `<li class="chooseItem">
+                        arrayItem[k] = `<li class="chooseItem ${arrayStorage[k].prioritize}">
                         <span class="content completeItem">${arrayStorage[k].name}</span>
                         <span class="pointFinish">${arrayFinish[k]}</span>
                         <span class="edit"><i class="fas fa-edit"></i></span>
@@ -260,7 +271,7 @@ function chooseItemToWork() {
                     </li>`;
                     }
                     else{
-                        arrayItem[k] = `<li class= "chooseItem">
+                        arrayItem[k] = `<li class= "chooseItem ${arrayStorage[k].prioritize}">
                         <span class="content">${arrayStorage[k].name}</span>
                         <span class="pointFinish">${arrayFinish[k]}</span>
                         <span class="edit"><i class="fas fa-edit"></i></span>
@@ -271,7 +282,7 @@ function chooseItemToWork() {
                 else{
                     if(document.querySelector('.to-do-list').childNodes[k].children[0].className.includes('completeItem')){
                         //Add class ='completeItem' for span.content
-                        arrayItem[k] = `<li>
+                        arrayItem[k] = `<li class="${arrayStorage[k].prioritize}">
                         <span class="content completeItem">${arrayStorage[k].name}</span>
                         <span class="pointFinish">${arrayFinish[k]}</span>
                         <span class="edit"><i class="fas fa-edit"></i></span>
@@ -279,7 +290,7 @@ function chooseItemToWork() {
                     </li>`;
                     }
                     else{
-                        arrayItem[k] = `<li>
+                        arrayItem[k] = `<li class="${arrayStorage[k].prioritize}">
                         <span class="content">${arrayStorage[k].name}</span>
                         <span class="pointFinish">${arrayFinish[k]}</span>
                         <span class="edit"><i class="fas fa-edit"></i></span>
@@ -450,13 +461,13 @@ start_Btn.addEventListener('click', ()=> {
 //Complete function đánh dấu việc hoàn thành
 function complete() {
     for(let i = 0; i < arrayItem.length; i++) {
-        if(document.querySelector('.to-do-list').childNodes[i].className === 'chooseItem'){
+        if(document.querySelector('.to-do-list').childNodes[i].classList.contains('chooseItem')){
             let countComplete = arrayFinish[i];
             countComplete++;
             arrayFinish[i] = countComplete;
             
             //Add class ='completeItem' for span.content
-            arrayItem[i] = `<li class="chooseItem">
+            arrayItem[i] = `<li class="chooseItem ${arrayStorage[i].prioritize}">
             <span class="content completeItem">${arrayStorage[i].name}</span> 
             <span class="pointFinish">${arrayFinish[i]}</span>
             <span class="edit"><i class="fas fa-edit"></i></span>
@@ -483,8 +494,53 @@ document.querySelector('#done_now').addEventListener('click', ()=>{
 
         document.querySelector(".result_pomodoro").innerHTML = `${score}`;
     }
-
 });
+
+
+//Uncomplete function đánh dấu việc chưa được hoàn thành
+function unComplete() {
+    for(let i = 0; i < arrayItem.length; i++) {
+        if(document.querySelector('.to-do-list').childNodes[i].classList.contains('chooseItem')){
+            let countComplete = arrayFinish[i];
+            countComplete--;
+            if(countComplete < 0){
+                countComplete = 0;
+            }
+            arrayFinish[i] = countComplete;
+            
+            //Add class ='completeItem' for span.content
+            arrayItem[i] = `<li class="chooseItem ${arrayStorage[i].prioritize}">
+            <span class="content">${arrayStorage[i].name}</span> 
+            <span class="pointFinish">${arrayFinish[i]}</span>
+            <span class="edit"><i class="fas fa-edit"></i></span>
+            <span class="delete"><i class="fas fa-trash-alt"></i></span>
+            </li>`;
+        }
+    }
+    localStorage.setItem('finish', JSON.stringify(arrayFinish));
+    
+    localStorage.setItem('all_items', JSON.stringify(arrayItem));
+    
+    showItems(arrayItem);
+    
+    localStorage.setItem('i', todo.innerHTML);
+}
+
+// click Un_done
+document.querySelector("#un_done").addEventListener('click', ()=> {
+    unComplete();
+
+    if(document.querySelector('.chooseItem')){
+        score = Number(document.querySelector(".result_pomodoro").innerHTML);
+        score--;
+        if(score < 0){
+            score = 0;
+        }
+        localStorage.setItem('score', JSON.stringify(score));
+
+        document.querySelector(".result_pomodoro").innerHTML = `${score}`;
+    }
+} )
 
 
 //Click PAUSE
@@ -522,6 +578,90 @@ skip_Btn.addEventListener('click', ()=> {
 })
 
 
+
+
+// Filter
+document.querySelector(".filter").addEventListener('change', filterTodoList);
+// document.querySelector(".filter_prioritize").addEventListener('change', filterTodoList);
+
+function filterTodoList(){
+    let filterTodo = todo.childNodes;
+    let filterContent = document.querySelector('.filter');
+    switch(filterContent.value){
+        case 'all':
+            filterTodo.forEach((todos, index) =>{
+                todos.style.display = 'flex';
+            })
+            break;
+            
+            case 'done':
+                filterTodo.forEach((todos, index) =>{
+                    if(todos.children[0].classList.contains('completeItem')){
+                        todos.style.display = 'flex';
+                    }
+                    else{
+                    todos.style.display = 'none';
+                }
+            })
+            break;
+            
+            case 'undone':
+                filterTodo.forEach((todos, index) =>{
+                    if(todos.children[0].classList.contains('completeItem') == false){
+                        todos.style.display = 'flex';
+                    }
+                    else{
+                        todos.style.display = 'none';
+                    }
+                })
+                break;
+                case 'prioritize_1':
+                    filterTodo.forEach((todos, index) =>{
+                        if(todos.classList.contains('prioritize_1')){
+                            todos.style.display = 'flex';
+                        }
+                        else{
+                            todos.style.display = 'none';
+                        }
+                    })
+                    break;
+                    case 'prioritize_2':
+                        filterTodo.forEach((todos, index) =>{
+                            if(todos.classList.contains('prioritize_2')){
+                                todos.style.display = 'flex';
+                            }
+                            else{
+                                todos.style.display = 'none';
+                            }
+                        })
+                        break;
+                        case 'prioritize_3':
+                            filterTodo.forEach((todos, index) =>{
+                                if(todos.classList.contains('prioritize_3')){
+                                    todos.style.display = 'flex';
+                                }
+                                else{
+                                    todos.style.display = 'none';
+                                }
+                            })
+                            break;
+                            case 'another':
+                                filterTodo.forEach((todos, index) =>{
+                if(todos.classList.contains('another')){
+                    todos.style.display = 'flex';
+                }
+                else{
+                    todos.style.display = 'none';
+                }
+            })
+            break;
+    }
+
+    localStorage.setItem('saveFilter', filterContent.value);
+}
+    
+    
+    
 // ======== When click Setting =========//
 document.querySelector(".setting").addEventListener('click', openSetting);
 
@@ -532,8 +672,9 @@ function openSetting() {
     document.querySelector('.total_container').classList.add("position_fixed");
 }
 
-// click Close form setting
+// click (x) or click OK button to close setting form
 document.querySelector(".fa-times").addEventListener('click', closeFormSetting);
+// document.querySelector('.btn_okay').addEventListener('click', closeFormSetting);
 
 function closeFormSetting(){
     document.querySelector('.form_setting').classList.remove('display_Block');
@@ -542,51 +683,9 @@ function closeFormSetting(){
     document.querySelector('.total_container').classList.remove("position_fixed");
 }
 
-
-// Filter
-document.querySelector(".filter").addEventListener('change', filterTodoList);
-function filterTodoList(){
-    let filterTodo = todo.childNodes;
-    let filterContent = document.querySelector('.filter');
-    switch(filterContent.value){
-        case 'all':
-            filterTodo.forEach((todos, index) =>{
-                todos.style.display = 'flex';
-            })
-            localStorage.setItem('saveFilter', filterContent.value);
-            break;
-
-        case 'done':
-            filterTodo.forEach((todos, index) =>{
-                if(todos.children[0].classList.contains('completeItem')){
-                    todos.style.display = 'flex';
-                }
-                else{
-                    todos.style.display = 'none';
-                }
-            })
-            localStorage.setItem('saveFilter', filterContent.value);
-            break;
-
-        case 'undone':
-            filterTodo.forEach((todos, index) =>{
-                if(todos.children[0].classList.contains('completeItem') == false){
-                    todos.style.display = 'flex';
-                }
-                else{
-                    todos.style.display = 'none';
-                }
-            })
-            localStorage.setItem('saveFilter', filterContent.value);
-            break;
-    }
-}
-
-
 // Click to set Alarm sound
 document.querySelector('.alarm_sound_dropdown').addEventListener('click', ()=>{
     document.querySelector('.list_sound').classList.toggle('display_Block');
-    
 })
 
 // onClick to choose Alarm Sound
