@@ -19,7 +19,7 @@
 }
 /* ===== BODY ===== */
 body{
-    background-color: var(--light_red); 
+    background-color: var(--light_blue); 
 
     font-family: var(--font_family);
     box-sizing: border-box;
