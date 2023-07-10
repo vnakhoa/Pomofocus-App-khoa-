@@ -73,8 +73,10 @@ export function updateSetting() {
     
 
     // Alarm sound
+    document.querySelector('.select_sound').value = setting.alarmSound;
 
-    // Ticking sound    
+    // Ticking sound 
+    document.querySelector('.select_ticking_sound').value = setting.tickingSound;   
 }
 
 
@@ -115,4 +117,12 @@ export function darkMode() {
         item.classList.toggle("color_white");
     })
 
+}
+
+
+// play alarm sound
+export function playAlarmSound() {
+    let soundCurrent = "./audio/" + setting.alarmSound + ".mp3";
+    let audio = new Audio(`${soundCurrent}`, );
+    audio.play();
 }

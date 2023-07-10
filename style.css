@@ -1162,13 +1162,13 @@ footer a:hover{
 
 /* color white */
 .color_white{
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.12);
     transition: 0.3s;
 }
 
 /* opacity */
 .opacity {
-    opacity: 0.2;
+    opacity: 0.12;
 }
 
 /* Grid Time */

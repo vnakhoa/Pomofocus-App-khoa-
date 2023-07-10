@@ -2,6 +2,7 @@ import { updateSetting} from "./setting.js";
 import { openSetting } from "./setting.js";
 import { closeFormSetting } from "./setting.js";
 import { darkMode } from "./setting.js";
+import { playAlarmSound } from "./setting.js";
 
 //ArrayStorage lưu nội dung text
 let arrayStorage = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
@@ -562,6 +563,9 @@ function starting() {
                 darkMode();
             }
 
+            // Alarm sound
+            playAlarmSound();
+
             //Chuyển đổi giao diện giữa Pomodoro và Breaktime
             if(document.querySelector('.active_PomodoroAndBreakTime').id == 'pomodoro'){
                 if(document.querySelector('.chooseItem')){
@@ -604,6 +608,11 @@ function starting() {
 pause_Btn.addEventListener('click', ()=> {
     //clearInterval
     clearInterval(countDownTime);
+
+    //Reset lại darkmode
+    if(document.body.classList.contains('active_dark_mode')){
+        darkMode();
+    }
 
     //Update Interface
     start_Btn.style.display = 'inline-block';
