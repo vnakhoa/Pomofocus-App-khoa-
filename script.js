@@ -1,3 +1,8 @@
+import { updateSetting} from "./setting.js";
+import { openSetting } from "./setting.js";
+import { closeFormSetting } from "./setting.js";
+import { darkMode } from "./setting.js";
+
 //ArrayStorage lưu nội dung text
 let arrayStorage = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
 
@@ -17,120 +22,48 @@ let pause_Btn = document.querySelector('#pause');
 let skip_Btn = document.querySelector('#skip');
 let breaktime_Btn = document.querySelector('#breaktime');
 let pomodoro_Btn = document.querySelector('#pomodoro');
-let autoStart_Breaktime = document.querySelector("#toggle1_input");
-let autoStart_Pomodoro = document.querySelector("#toggle2_input");
-let autoStart_Switch = document.querySelector("#toggle3_input");
-let darkMode = document.querySelector("#toggle_dark-mode");
 
 // Giao diện mới bắt đầu ở Pomodoro
 pomodoro_Btn.classList.add('active_PomodoroAndBreakTime');
 
 
 //=====-====-====== SETTING ====-===-======//
-
 let setting = localStorage.getItem('setting') ? JSON.parse(localStorage.getItem('setting')) : {
     minutePomodoro: document.querySelector(".set_time_item--minute-pomodoro").value,
     minuteBreaktime: document.querySelector(".set_time_item--minute-breaktime").value,
-    autoStart_Breaktime: autoStart_Breaktime.checked,
-    autoStart_Pomodoro: autoStart_Pomodoro.checked,
-    autoStart_Switch: autoStart_Switch.checked,
-    darkMode: darkMode.checked,
+    autoStart_Breaktime:  document.querySelector("#toggle1_input").checked,
+    autoStart_Pomodoro:  document.querySelector("#toggle2_input").checked,
+    autoStart_Switch:  document.querySelector("#toggle3_input").checked,
+    darkMode: document.querySelector("#toggle_dark-mode").checked,
     alarmSound: document.querySelector(".select_sound").value,
     tickingSound: document.querySelector(".select_ticking_sound").value,
 }
 localStorage.setItem('setting', JSON.stringify(setting));
 
-//click OK
-let okayBtn = document.querySelector('.btn_okay');
-okayBtn.addEventListener('click', settingForm);
+// Form setting, lấy dữ liệu từ form setting khi nhấn OK
 function settingForm() {
-    let autoStart_Breaktime = document.querySelector("#toggle1_input");
-    let autoStart_Pomodoro = document.querySelector("#toggle2_input");
-    let autoStart_Switch = document.querySelector("#toggle3_input");
-    let darkMode = document.querySelector("#toggle_dark-mode");
-
-    settingForm =  {
+    let settingForm =  {
         minutePomodoro: document.querySelector(".set_time_item--minute-pomodoro").value,
         minuteBreaktime: document.querySelector(".set_time_item--minute-breaktime").value,
-        autoStart_Breaktime: autoStart_Breaktime.checked,
-        autoStart_Pomodoro: autoStart_Pomodoro.checked,
-        autoStart_Switch: autoStart_Switch.checked,
-        darkMode: darkMode.checked,
+        autoStart_Breaktime:  document.querySelector("#toggle1_input").checked,
+        autoStart_Pomodoro:  document.querySelector("#toggle2_input").checked,
+        autoStart_Switch:  document.querySelector("#toggle3_input").checked,
+        darkMode: document.querySelector("#toggle_dark-mode").checked,
         alarmSound: document.querySelector(".select_sound").value,
         tickingSound: document.querySelector(".select_ticking_sound").value,
     }
 
-    // document.querySelector("#minute").innerHTML = settingForm.minutePomodoro;
-
     localStorage.setItem('setting', JSON.stringify(settingForm));
 
     // Cập nhật lại minute 
-    setting = JSON.parse(localStorage.getItem('setting'))
+    setting = JSON.parse(localStorage.getItem('setting'));
     updateSetting();
 }
-
-// Cập nhật giao diện setting
-function updateSetting() {
-    // Minute Pomodoro trong form setting
-    document.querySelector(".set_time_item--minute-pomodoro").value = setting.minutePomodoro;
-    // Minute Breaktime trong form setting
-    document.querySelector(".set_time_item--minute-breaktime").value = setting.minuteBreaktime;
-
-    // Minute của pomodoro và breaktime ngoài giao diện
-    if(document.querySelector('.active_PomodoroAndBreakTime').id == 'pomodoro'){
-        document.querySelector("#minute").innerHTML = setting.minutePomodoro;
-        document.querySelector('#second').innerHTML = '00';
-    }
-    else{
-        document.querySelector("#minute").innerHTML = setting.minuteBreaktime;
-        document.querySelector('#second').innerHTML = '00';
-    }
-
-
-    // Auto start Break (toggle)
-    if(setting.autoStart_Breaktime){
-        document.querySelector(".break_color").classList.add("toggle_color");
-        document.querySelector(".before_break").classList.add('toggle_active');
-    }
-    else{
-        document.querySelector(".break_color").classList.remove("toggle_color");
-        document.querySelector(".before_break").classList.remove('toggle_active');
-    }
-
-    // Auto start Pomodoro (toggle)
-    if(setting.autoStart_Pomodoro){
-        document.querySelector(".pomodoro_color").classList.add("toggle_color");
-        document.querySelector(".before_pomodoro").classList.add('toggle_active');
-    }
-    else{
-        document.querySelector(".pomodoro_color").classList.remove("toggle_color");
-        document.querySelector(".before_pomodoro").classList.remove('toggle_active');
-    }
-
-    // Auto start Switch (toggle)
-    if(setting.autoStart_Switch){
-        document.querySelector(".switch_color").classList.add("toggle_color");
-        document.querySelector(".before_switch").classList.add('toggle_active');
-    }
-    else{
-        document.querySelector(".switch_color").classList.remove("toggle_color");
-        document.querySelector(".before_switch").classList.remove('toggle_active');
-    }
-
-    // Auto start Dark Mode (toggle)
-    if(setting.darkMode){
-        document.querySelector(".darkmode_color").classList.add("toggle_color");
-        document.querySelector(".before_darkmode").classList.add('toggle_active');
-    }
-    else{
-        document.querySelector(".darkmode_color").classList.remove("toggle_color");
-        document.querySelector(".before_darkmode").classList.remove('toggle_active');
-    }
-
-
-}
-updateSetting();
-
+//click OK
+let okayBtn = document.querySelector('.btn_okay');
+okayBtn.addEventListener('click', settingForm);
+// Cập nhật setting khi bắt đầu
+updateSetting();    
 
 
 // Click btn Toggle auto start Breaktime
@@ -181,48 +114,40 @@ document.querySelector("#toggle_dark-mode").addEventListener('click', ()=>{
 // ======== When click Setting btn =========//
 document.querySelector(".setting").addEventListener('click', openSetting);
 
-function openSetting() {
-    document.querySelector('.form_setting').classList.toggle('display_Block');
-
-    // add position fixed for card .total_container
-    document.querySelector('.total_container').classList.add("position_fixed");
-}
-
 
 // ==== click (x) or click OK button to close setting form =====//
 document.querySelector(".fa-times").addEventListener('click', closeFormSetting);
 document.querySelector('.btn_okay').addEventListener('click', closeFormSetting);
-
-function closeFormSetting(){
-    document.querySelector('.form_setting').classList.remove('display_Block');
-    // Remove position fixed for card .total_container
-    document.querySelector('.total_container').classList.remove("position_fixed");
-}
 
 
 // Click to set Alarm sound
 document.querySelector('.alarm_sound_dropdown').addEventListener('click', ()=>{
     document.querySelector('.list_sound').classList.toggle('display_Block');
 })
-
 // onClick to choose Alarm Sound
-function getValueAlarm(sound){
-    document.querySelector('.select_sound').value = sound;
+let listAlarm = document.querySelector('.list_sound').childNodes;
+listAlarm.forEach((sound, i) => {
+    sound.addEventListener('click', getValueAlarm);
+})
+function getValueAlarm(){
+    document.querySelector('.select_sound').value = this.innerHTML;
 }
+
 
 // click to set Ticking Sound
 document.querySelector('.ticking_sound_dropdown').addEventListener('click', ()=>{
     document.querySelector('.list_ticking_sound').classList.toggle('display_Block');
-    
 })
-
 // onClick to choose Ticking Sound
-function getValueTicking(sound){
-    document.querySelector('.select_ticking_sound').value = sound;
+let listTicking = document.querySelector('.list_ticking_sound').childNodes;
+listTicking.forEach((sound, i) => {
+    sound.addEventListener('click', getValueTicking);
+})
+function getValueTicking(){
+    document.querySelector('.select_ticking_sound').value = this.innerHTML;
 }
 
 //====== END SETTING ======//
-
 
 
 // save item
@@ -467,7 +392,6 @@ function editItem() {
     })
 }
 
-
 function chooseItemToWork() {
     
     let work = document.querySelector('.to-do-list').childNodes;
@@ -527,11 +451,7 @@ function chooseItemToWork() {
 
 
 
-
-
 //=========== Time ===========//
-// document.querySelector('#minute').innerHTML = '1';
-// document.querySelector('#second').innerHTML = '00';
 start_Btn.style.display = 'inline-block';
 pause_Btn.style.display = 'none';
 skip_Btn.style.display = 'none';
@@ -582,8 +502,16 @@ let countDownTime; //Biến setInterval đếm giờ
 let score;  //Số việc hoàn thành
 let second;
 let minute;
+
+
 //Click nút START
-start_Btn.addEventListener('click', ()=> {
+start_Btn.addEventListener('click', starting);
+function starting() {
+    // Dark Mode
+    if(setting.darkMode && document.body.classList.contains('active_dark_mode') == false){
+        darkMode();
+    }
+
     //update interface
     start_Btn.style.display = 'none';
     pause_Btn.style.display = 'inline-block';
@@ -629,6 +557,11 @@ start_Btn.addEventListener('click', ()=> {
             //clearInterval
             clearInterval(countDownTime);
 
+            //Reset lại darkmode
+            if(document.body.classList.contains('active_dark_mode')){
+                darkMode();
+            }
+
             //Chuyển đổi giao diện giữa Pomodoro và Breaktime
             if(document.querySelector('.active_PomodoroAndBreakTime').id == 'pomodoro'){
                 if(document.querySelector('.chooseItem')){
@@ -640,9 +573,24 @@ start_Btn.addEventListener('click', ()=> {
                 }
                 complete();
                 breakTime_Funct();
+
+                // Auto start Breaktime
+                if(setting.autoStart_Breaktime){
+                    starting();
+                }
+
+                // Auto Switch task
+                if(setting.autoStart_Switch){
+                    switchTask();
+                }
             }
             else{
                 pomodoro_Funct();
+
+                // Auto start Pomodoro 
+                if(setting.autoStart_Pomodoro){
+                    starting();
+                }
             }
         }
     }, 1000);
@@ -650,7 +598,97 @@ start_Btn.addEventListener('click', ()=> {
     document.querySelector('.add_list').classList.remove('display_Flex');
     // Reset add button
     resetAddButton();
+}
+
+//Click PAUSE
+pause_Btn.addEventListener('click', ()=> {
+    //clearInterval
+    clearInterval(countDownTime);
+
+    //Update Interface
+    start_Btn.style.display = 'inline-block';
+    skip_Btn.style.display = 'inline-block';
+    pause_Btn.style.display = 'none';
 })
+
+//click SKIP
+skip_Btn.addEventListener('click', ()=> {
+    //clearInteral
+    clearInterval(countDownTime);
+
+    //Reset lại darkmode
+    if(document.body.classList.contains('active_dark_mode')){
+        darkMode();
+    }
+
+    //Chuyển đổi giao diện giữa Pomodoro và Breaktime
+    if(document.querySelector('.active_PomodoroAndBreakTime').id == 'pomodoro'){
+        if(document.querySelector('.chooseItem')){
+            score = Number(document.querySelector(".result_pomodoro").innerHTML);
+            score++;
+            localStorage.setItem('score', JSON.stringify(score));
+
+            document.querySelector(".result_pomodoro").innerHTML = `${score}`;
+        }
+        complete();
+        breakTime_Funct();
+
+        // Auto start Breaktime
+        if(setting.autoStart_Breaktime){
+            starting();
+        }
+
+         // Auto Switch task
+         if(setting.autoStart_Switch){
+            switchTask();
+        }
+    }
+    else{
+        pomodoro_Funct();
+
+        // Auto start Pomodoro  
+        if(setting.autoStart_Pomodoro){
+            starting();
+        }
+    }
+})
+
+
+// Auto Switch Task
+function switchTask(){
+    let task = document.querySelector(".to-do-list").childNodes;
+    console.log(task);
+    let index = -1;
+    for(let i = 0; i < task.length; i++){
+        if(task[i].className.includes('chooseItem')){
+            index = i;
+            // task[index].classList.remove('chooseItem');
+            arrayItem[index] =  `<li class="${arrayStorage[index].prioritize}">
+            <span class="content completeItem">${arrayStorage[index].name}</span>
+            <span class="pointFinish">${arrayFinish[index]}</span>
+            <span class="edit"><i class="fas fa-edit"></i></span>
+            <span class="delete"><i class="fas fa-trash-alt"></i></span>
+        </li>`;
+        }
+    }
+    console.log(index, 'index');
+
+    if(index != -1 && (index +1) <= task.length){
+        // task[index +1].classList.add('chooseItem');
+        arrayItem[index + 1] =  `<li class=" chooseItem ${arrayStorage[index +1].prioritize}">
+        <span class="content completeItem">${arrayStorage[index+1].name}</span>
+        <span class="pointFinish">${arrayFinish[index+1]}</span>
+        <span class="edit"><i class="fas fa-edit"></i></span>
+        <span class="delete"><i class="fas fa-trash-alt"></i></span>
+    </li>`;
+    }
+
+    localStorage.setItem('all_items', JSON.stringify(arrayItem));
+    localStorage.setItem('i', todo.innerHTML);
+
+    //ShowItem
+    showItems(arrayItem); 
+}
 
 //Complete function đánh dấu việc hoàn thành
 function complete() {
@@ -702,12 +740,22 @@ function unComplete() {
             arrayFinish[i] = countComplete;
             
             //Add class ='completeItem' for span.content
-            arrayItem[i] = `<li class="chooseItem ${arrayStorage[i].prioritize}">
-            <span class="content">${arrayStorage[i].name}</span> 
-            <span class="pointFinish">${arrayFinish[i]}</span>
-            <span class="edit"><i class="fas fa-edit"></i></span>
-            <span class="delete"><i class="fas fa-trash-alt"></i></span>
-            </li>`;
+            if(countComplete == 0){
+                arrayItem[i] = `<li class="chooseItem ${arrayStorage[i].prioritize}">
+                <span class="content">${arrayStorage[i].name}</span> 
+                <span class="pointFinish">${arrayFinish[i]}</span>
+                <span class="edit"><i class="fas fa-edit"></i></span>
+                <span class="delete"><i class="fas fa-trash-alt"></i></span>
+                </li>`;
+            }
+            else{
+                arrayItem[i] = `<li class="chooseItem ${arrayStorage[i].prioritize}">
+                <span class="content completeItem">${arrayStorage[i].name}</span> 
+                <span class="pointFinish">${arrayFinish[i]}</span>
+                <span class="edit"><i class="fas fa-edit"></i></span>
+                <span class="delete"><i class="fas fa-trash-alt"></i></span>
+                </li>`;
+            }
         }
     }
     localStorage.setItem('finish', JSON.stringify(arrayFinish));
@@ -733,41 +781,6 @@ document.querySelector("#un_done").addEventListener('click', ()=> {
         document.querySelector(".result_pomodoro").innerHTML = `${score}`;
     }
 } )
-
-
-//Click PAUSE
-pause_Btn.addEventListener('click', ()=> {
-    //clearInterval
-    clearInterval(countDownTime);
-
-    //Update Interface
-    start_Btn.style.display = 'inline-block';
-    skip_Btn.style.display = 'inline-block';
-    pause_Btn.style.display = 'none';
-})
-
-//click SKIP
-skip_Btn.addEventListener('click', ()=> {
-    //clearInteral
-    clearInterval(countDownTime);
-
-    //Chuyển đổi giao diện giữa Pomodoro và Breaktime
-    if(document.querySelector('.active_PomodoroAndBreakTime').id == 'pomodoro'){
-        if(document.querySelector('.chooseItem')){
-            score = Number(document.querySelector(".result_pomodoro").innerHTML);
-            score++;
-            localStorage.setItem('score', JSON.stringify(score));
-
-            document.querySelector(".result_pomodoro").innerHTML = `${score}`;
-        }
-        complete();
-        breakTime_Funct();
-    }
-    else{
-        pomodoro_Funct();
-    }
-})
-
 
 
 

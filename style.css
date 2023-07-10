@@ -652,7 +652,7 @@ header .header_container .logo .logo_content{
 }
 
 /*====== NOTICE and INPUT=======*/
-#notice{
+.notice{
     grid-area: 1/1/2/2;
     background-color: rgba(255, 255, 255, 0.1);
     padding: 15px;
@@ -667,19 +667,19 @@ header .header_container .logo .logo_content{
     align-items: center;
 }
 
-.notice .notice_content{
+.notice_content{
     width: 100%;
 }
 
 
 /*----==== ADD Item ===-----*/
-#add_item{
+.add_item{
     grid-area: 1/2/2/3;
     width: 100%;
     position: relative;
 }
 
-#add_item .start_add_item{
+.add_item .start_add_item{
     position: relative;
     top: 0;
     left: 0;
@@ -692,7 +692,7 @@ header .header_container .logo .logo_content{
     width: 100%;
 }
 
-#add_item .start_add_item:hover{
+.add_item .start_add_item:hover{
     background-color: rgba(255, 255, 255, 0.35);
 }
 
@@ -901,7 +901,7 @@ button:hover{
 
 
 /* ======= TIME ========   (set Default for height) */
-#time{
+.time{
     grid-area: 2/1/3/2;
     background-color: var(--light_color);
     border-radius: 5px;
@@ -932,14 +932,14 @@ button:hover{
 }
 
 
-/* ======= TASK =======   (set min heigth 250px for #task)*/
+/* ======= TASK =======   (set min heigth 250px for .task)*/
 .task_and_input{
     position: relative;
     grid-area: 2/2/3/3;
     margin-top: -2px;
 }
 
-#task{
+.task{
     background-color: var(--light_color);
     border-radius: 5px;
     padding: 15px;
@@ -950,14 +950,14 @@ button:hover{
     min-height: 250px;
 }
 
-#task h4{
+.task h4{
     font-size: 20px;
     text-align: center;
     margin-top: 0px;
     margin-bottom: 10px;
 }
 
-#task #to-do-list{
+.task #to-do-list{
     margin-top: 12px;
     margin-bottom: 0px;
 }
@@ -990,7 +990,7 @@ button:hover{
     font-weight: 500;
 }
 
-/* end #task */
+/* end .task */
 
 /* =================== CSS style for some card items that created by Javascript ======================= */
 /* ====== Change color ====== */
@@ -1098,11 +1098,11 @@ footer{
 }
 
 footer a{
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.85);
 }
 
 footer a:hover{
-    color: inherit;
+    color: white;
 }
 
 .footer_container{
@@ -1147,4 +1147,35 @@ footer a:hover{
 .position_fixed{
     position: fixed;
     transition: 0.5s;
+}
+
+/* Dark Mode */
+.active_dark_mode{
+    background-color: black;
+    color: white;
+}
+
+/* display None */
+.display_None{
+    display: none;
+}
+
+/* color white */
+.color_white{
+    color: rgba(255, 255, 255, 0.2);
+    transition: 0.3s;
+}
+
+/* opacity */
+.opacity {
+    opacity: 0.2;
+}
+
+/* Grid Time */
+.grid_time{
+    position: relative;
+    left: 100%;
+    transform: translateX(-20%);
+    
+    z-index: 5;
 }

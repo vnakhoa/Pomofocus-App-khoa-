@@ -40,7 +40,7 @@
                 </div>
                 <div class="set_time_item">
                     <label for="">Break Time</label> <br>
-                    <input type="number" min="0" step="1" value="1" class="set_time_item--minute-breaktime">
+                    <input type="number" min="0" step="1" value="2" class="set_time_item--minute-breaktime">
                 </div>
             </div>
     
@@ -121,11 +121,11 @@
                 <div class="ticking_sound_dropdown">
                     <input class="select_ticking_sound" placeholder="Select sound" readonly>
                     <div class="list_ticking_sound">
-                        <div onclick="getValueTicking('None')">None</div>
-                        <div onclick="getValueTicking('Tickking Fast')">Tickking Fast</div>
-                        <div onclick="getValueTicking('Ticking Slow')">Ticking Slow</div>
-                        <div onclick="getValueTicking('White Noise')">White Noise</div>
-                        <div onclick="getValueTicking('Brown Noise')">Brown Noise</div>
+                        <div>None</div>
+                        <div>Tickking Fast</div>
+                        <div>Ticking Slow</div>
+                        <div>White Noise</div>
+                        <div>Brown Noise</div>
                     </div>
                 </div>
             </div>
@@ -237,17 +237,17 @@
         <!-- CONTAINER -->
         <div id="container">
             <!-- NOTICE -->
-            <div id="notice">
-                <div class="notice_content"><span id="finish">Finished: </span> <span class="result_pomodoro" style="color: white;"></span></div>
+            <div class="notice">
+                <div class="notice_content"><span id="finish">Finished: </span> <span class="result_pomodoro"></span></div>
             </div>
 
             <!-- ADD ITEM BUTTON -->
-            <div id="add_item">
+            <div class="add_item">
                 <button class="start_add_item"><i class="fas fa-plus-circle"></i> ADD</button>
             </div>
 
             <!-- Time -->
-            <div id="time">
+            <div class="time">
                 <button id="pomodoro">Pomodoro</button>
                 <button id="breaktime">Break Time</button>
         
@@ -298,7 +298,7 @@
                 </div>
 
                 <!-- Task -->
-                <div id="task">
+                <div class="task">
                     <!-- Filter done or undone-->
                     <select class="filter">
                         <option value="all">All</option>
