@@ -140,11 +140,11 @@ export function darkMode() {
     document.querySelector('.task').classList.toggle('display_None');
 
     // set Grid for Time
-    if(window.innerWidth > 992){
+    if(window.innerWidth > 910){
         document.querySelector('.time').classList.toggle('grid_time');
     }
     else{
-        document.querySelector('.time').classList.toggle('grid_time');
+        document.querySelector('.time').classList.toggle('grid_time_screen910');
     }
     
     // Change color for a , p
