@@ -572,7 +572,8 @@ header .header_container .logo .logo_content{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px
+    margin-bottom: 10px;
+    position: relative;
 }
 
 .color_pomodoro, .color_breaktime, .color_blue , .color_green , .color_red{
@@ -583,7 +584,7 @@ header .header_container .logo .logo_content{
 }
 
 .color_pomodoro{
-    background-color: var(--light_red);
+    background-color: var(--light_blue);
 }
 .color_breaktime{
     background-color: var(--light_green);
@@ -608,7 +609,45 @@ header .header_container .logo .logo_content{
 
 /* choose_color DISPLAY-NONE */
 .choose_color{
+    position: absolute;
+    top: -145px;
+    right: 0;
+    width: 70%;
+    background-color: rgb(36, 32, 32);
+    border-radius: 5px;
+
     display: none;
+}
+
+.choose_color--form{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.choose_color p{
+    color: white;
+    margin-left: 15px;
+}
+
+.choose_color--close{
+    width: 100%;
+    position: relative;
+    height: 40px;
+}
+
+.choose_color--closeBtn{
+    position: absolute;
+    right: 0;
+    padding: 5px;
+    color: rgb(179, 156, 118);
+    background-color: transparent;
+}
+
+.choose_color--closeBtn:hover{
+    background-color: transparent;
+    color: rgb(193, 172, 137);
 }
 
 
@@ -993,12 +1032,6 @@ button:hover{
 /* end .task */
 
 /* =================== CSS style for some card items that created by Javascript ======================= */
-/* ====== Change color ====== */
-.color{
-    background-color: var(--light_green);
-    transition: all 1.5s;
-}
-
 ul{
     padding-left: 0px;
 }
@@ -1149,11 +1182,6 @@ footer a:hover{
     transition: 0.5s;
 }
 
-/* Dark Mode */
-.active_dark_mode{
-    background-color: black;
-    color: white;
-}
 
 /* display None */
 .display_None{

@@ -4,6 +4,10 @@ let setting;
 export function updateSetting() {
     setting = JSON.parse(localStorage.getItem('setting'));
 
+    //BODY background
+    document.querySelector('.color_pomodoro').style.backgroundColor = setting.color_Pomodoro;
+    document.querySelector('.color_breaktime').style.backgroundColor = setting.color_Breaktime;
+
     // Minute Pomodoro trong form setting
     document.querySelector(".set_time_item--minute-pomodoro").value = setting.minutePomodoro;
     // Minute Breaktime trong form setting
@@ -14,10 +18,16 @@ export function updateSetting() {
     if(document.querySelector('.active_PomodoroAndBreakTime').id == 'pomodoro'){
         document.querySelector("#minute").innerHTML = setting.minutePomodoro;
         document.querySelector('#second').innerHTML = '00';
+
+        //BODY background current
+        document.body.style.backgroundColor = setting.color_Pomodoro;
     }
     else{
         document.querySelector("#minute").innerHTML = setting.minuteBreaktime;
         document.querySelector('#second').innerHTML = '00';
+        
+        //BODY background current
+        document.body.style.backgroundColor = setting.color_Breaktime;
     }
     
 
@@ -71,12 +81,18 @@ export function updateSetting() {
     }
 
     
-
     // Alarm sound
     document.querySelector('.select_sound').value = setting.alarmSound;
 
     // Ticking sound 
     document.querySelector('.select_ticking_sound').value = setting.tickingSound;   
+
+
+    //Pomodoro color
+    document.querySelector('.color_pomodoro').style.backgroundColor = setting.color_Pomodoro;
+    
+    //Pomodoro color
+    document.querySelector('.color_breaktime').style.backgroundColor = setting.color_Breaktime;
 }
 
 
@@ -97,7 +113,20 @@ export function closeFormSetting(){
 
 // Dark mode
 export function darkMode() {
+    // Active dark mode
     document.body.classList.toggle('active_dark_mode');
+
+    if(!document.body.classList.contains("active_dark_mode")){
+        if(document.querySelector('.active_PomodoroAndBreakTime').id == 'pomodoro'){
+            document.body.style.backgroundColor = setting.color_Pomodoro;
+        }
+        else{
+            document.body.style.backgroundColor = setting.color_Breaktime;
+        }
+    }
+    else{
+        document.body.style.backgroundColor = 'black';
+    }
     document.querySelector("footer").classList.toggle('color_white');
     document.querySelector('.footer_image').classList.toggle('opacity');
 
@@ -120,9 +149,48 @@ export function darkMode() {
 }
 
 
-// play alarm sound
+// play Alarm sound (audio)
 export function playAlarmSound() {
     let soundCurrent = "./audio/" + setting.alarmSound + ".mp3";
     let audio = new Audio(`${soundCurrent}`, );
     audio.play();
+}
+
+// Close choose color
+let closeChooseColor = document.querySelector('.choose_color--closeBtn').addEventListener('click', ()=>{
+    document.querySelector('.choose_color').classList.remove('display_Block');
+})
+export {closeChooseColor};
+
+
+
+// Array color
+export let colorArray = ['var(--light_blue)', 'var(--light_green)' , 'var(--light_red)'];
+
+let indexColor = -1;
+
+// Choose color
+let colorShape = document.querySelectorAll('.color--form');
+colorShape.forEach((color, i) => {
+    color.addEventListener('click', ()=>{
+        indexColor = i;
+        if(document.querySelector('.active_color').classList.contains("color_pomodoro")){
+            chooseColorPomodoro();
+        }
+        else{
+            chooseColorBreaktime();
+        }
+        localStorage.setItem('setting', JSON.stringify(setting));
+    });
+})
+
+function chooseColorPomodoro() {
+    document.querySelector('.color_pomodoro').style.backgroundColor = colorArray[indexColor];
+    // Cập nhật lại setting
+    setting.color_Pomodoro = colorArray[indexColor];
+}
+function chooseColorBreaktime() {
+    document.querySelector('.color_breaktime').style.backgroundColor = colorArray[indexColor];
+    // Cập nhật lại setting
+    setting.color_Breaktime = colorArray[indexColor];
 }

@@ -3,6 +3,7 @@ import { openSetting } from "./setting.js";
 import { closeFormSetting } from "./setting.js";
 import { darkMode } from "./setting.js";
 import { playAlarmSound } from "./setting.js";
+import { colorArray } from "./setting.js";
 
 //ArrayStorage lưu nội dung text
 let arrayStorage = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
@@ -38,8 +39,11 @@ let setting = localStorage.getItem('setting') ? JSON.parse(localStorage.getItem(
     darkMode: document.querySelector("#toggle_dark-mode").checked,
     alarmSound: document.querySelector(".select_sound").value,
     tickingSound: document.querySelector(".select_ticking_sound").value,
+    color_Pomodoro: colorArray[0],
+    color_Breaktime: colorArray[1],
 }
 localStorage.setItem('setting', JSON.stringify(setting));
+console.log(setting, '111');
 
 // Form setting, lấy dữ liệu từ form setting khi nhấn OK
 function settingForm() {
@@ -52,6 +56,8 @@ function settingForm() {
         darkMode: document.querySelector("#toggle_dark-mode").checked,
         alarmSound: document.querySelector(".select_sound").value,
         tickingSound: document.querySelector(".select_ticking_sound").value,
+        color_Pomodoro: document.querySelector('.color_pomodoro').style.backgroundColor,
+        color_Breaktime: document.querySelector('.color_breaktime').style.backgroundColor,
     }
 
     localStorage.setItem('setting', JSON.stringify(settingForm));
@@ -65,6 +71,8 @@ let okayBtn = document.querySelector('.btn_okay');
 okayBtn.addEventListener('click', settingForm);
 // Cập nhật setting khi bắt đầu
 updateSetting();    
+
+
 
 
 // Click btn Toggle auto start Breaktime
@@ -147,6 +155,29 @@ listTicking.forEach((sound, i) => {
 function getValueTicking(){
     document.querySelector('.select_ticking_sound').value = this.innerHTML;
 }
+
+
+// Click color_pomodoro and color_breaktime to open Choose color
+document.querySelector(".color_pomodoro").addEventListener('click', ()=>{
+    // Add class active_color vào .color_pomodoro
+    if(document.querySelector('.active_color')){
+        document.querySelector('.active_color').classList.remove('active_color');
+    }
+    document.querySelector('.color_pomodoro').classList.add('active_color');
+
+    // Display Block choose_color
+    document.querySelector(".choose_color").classList.toggle('display_Block');
+})
+document.querySelector(".color_breaktime").addEventListener('click', ()=>{
+    // Add class active_color vào .color_breaktime
+    if(document.querySelector('.active_color')){
+        document.querySelector('.active_color').classList.remove('active_color');
+    }
+    document.querySelector('.color_breaktime').classList.add('active_color');
+
+    // Display Block choose_color
+    document.querySelector(".choose_color").classList.toggle('display_Block');
+})
 
 //====== END SETTING ======//
 
@@ -465,7 +496,7 @@ function pomodoro_Funct() {
     clearInterval(countDownTime);
 
     //Đổi màu nền
-    document.querySelector('body').classList.remove('color');
+    document.querySelector('body').style.backgroundColor = setting.color_Pomodoro;
     
     document.querySelector('.active_PomodoroAndBreakTime').classList.remove('active_PomodoroAndBreakTime');
     pomodoro_Btn.classList.add('active_PomodoroAndBreakTime');
@@ -485,7 +516,7 @@ function breakTime_Funct() {
     clearInterval(countDownTime);
 
     //Đổi màu nền
-    document.querySelector('body').classList.add('color');
+    document.querySelector('body').style.backgroundColor = setting.color_Breaktime;
     
     document.querySelector('.active_PomodoroAndBreakTime').classList.remove('active_PomodoroAndBreakTime');
     breaktime_Btn.classList.add('active_PomodoroAndBreakTime');
@@ -582,14 +613,14 @@ function starting() {
                 if(setting.autoStart_Breaktime){
                     starting();
                 }
-
-                // Auto Switch task
-                if(setting.autoStart_Switch){
-                    switchTask();
-                }
             }
             else{
                 pomodoro_Funct();
+
+                 // Auto Switch task
+                if(setting.autoStart_Switch){
+                    switchTask();
+                }
 
                 // Auto start Pomodoro 
                 if(setting.autoStart_Pomodoro){
