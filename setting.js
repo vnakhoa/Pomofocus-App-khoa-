@@ -100,6 +100,10 @@ export function updateSetting() {
 export function openSetting() {
     document.querySelector('.form_setting').classList.toggle('display_Block');
 
+    if(document.querySelector('.block_screen600')){
+        document.querySelector('.menu').classList.remove('block_screen600');
+    }
+
     // add position fixed for card .total_container
     document.querySelector('.total_container').classList.add("position_fixed");
 }
@@ -136,7 +140,12 @@ export function darkMode() {
     document.querySelector('.task').classList.toggle('display_None');
 
     // set Grid for Time
-    document.querySelector('.time').classList.toggle('grid_time');
+    if(window.innerWidth > 992){
+        document.querySelector('.time').classList.toggle('grid_time');
+    }
+    else{
+        document.querySelector('.time').classList.toggle('grid_time');
+    }
     
     // Change color for a , p
     document.querySelectorAll("a").forEach((link) => {
@@ -194,3 +203,10 @@ function chooseColorBreaktime() {
     // Cập nhật lại setting
     setting.color_Breaktime = colorArray[indexColor];
 }
+
+
+
+//Open setting at screen <= 600px
+document.querySelector('.fa-bars').addEventListener('click', () =>{
+    document.querySelector('.menu').classList.toggle('block_screen600');
+})
