@@ -1282,7 +1282,12 @@ footer a:hover{
     }
 }
 
+@media screen and (max-width: 424px){
+    .add_list .btn_additem button{
+        font-size: 14px;
+    }
 
+}
 
 
 /* ======= For Javascript ===== */
