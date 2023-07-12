@@ -1209,6 +1209,13 @@ footer a:hover{
     .add_item{
         grid-area: 4/1/5/2;
     }
+
+    .add_list{
+        position: absolute;
+        top: calc(100% + 48px);
+        z-index: 5;
+    }
+
     
     .footer_container{
         margin-top: 20%;
