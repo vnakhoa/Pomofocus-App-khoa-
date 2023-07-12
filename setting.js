@@ -161,7 +161,7 @@ export function darkMode() {
 // play Alarm sound (audio)
 export function playAlarmSound() {
     let soundCurrent = "./audio/" + setting.alarmSound + ".mp3";
-    let audio = new Audio(`${soundCurrent}`, );
+    let audio = new Audio(`${soundCurrent}`);
     audio.play();
 }
 
