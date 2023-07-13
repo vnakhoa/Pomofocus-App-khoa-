@@ -395,7 +395,9 @@ function editItem() {
 
     let edit = document.querySelectorAll('.edit');
     edit.forEach((tab, i) => {
-        tab.addEventListener('click', ()=> {
+        tab.addEventListener('click', (e)=> {
+            e.stopPropagation();
+
             // show input
             document.querySelector('.add_list').classList.add("display_Flex");
 
@@ -904,5 +906,74 @@ function filterTodoList(){
     localStorage.setItem('saveFilter', filterContent.value);
 }
     
-    
+// Sort 
+document.querySelector('.sort').addEventListener('change', () =>{
+    if(document.querySelector('.sort').value == 'sort_name'){
+        sortName();
+    }
+})
 
+// Sort by name
+function sortName() {
+    let sortName = Array.from(document.querySelector('.to-do-list').childNodes);
+    console.log(sortName, 'chưa sort');
+    sortName.sort((a, b) => {
+        if(sortName.length > 0){
+            const nameA = a.children[0].innerHTML.toLowerCase(); // ignore upper and lowercase
+            const nameB =  b.children[0].innerHTML.toLowerCase();
+        
+            if (nameA > nameB) {
+                return 1;
+            }
+            else if (nameA < nameB) {
+                return -1;
+            }
+            
+            // names must be equal
+            else{
+                return 0;
+            }
+        }
+    })
+    
+    // ArayItem  rỗng
+    arrayItem = [];
+    sortName.forEach((item, i)=> {
+        arrayItem.push(item.outerHTML)
+    })
+    console.log(arrayItem, 'arayItem đã sort');
+    console.log(sortName, 'đã sort');
+    
+    arrayStorage.sort((a, b) => { 
+        const nameA = a.name.toLowerCase(); // ignore upper and lowercase
+        const nameB =  b.name.toLowerCase();
+        
+        if (nameA > nameB) {
+            return 1;
+        }
+        else if (nameA < nameB) {
+            return -1;
+        }
+        
+        // names must be equal
+        else{
+            return 0;
+        }
+    });
+    
+    console.log(arrayFinish , 'ff');
+    let k = []
+    sortName.forEach((item, i) => {
+        k.push(Number(item.children[1].innerHTML));
+    })
+    
+    arrayFinish = k;
+    console.log(arrayFinish, 'f àter');
+    
+    showItems(arrayItem);
+
+    localStorage.setItem('finish', JSON.stringify(arrayFinish));
+    localStorage.setItem('all_items', JSON.stringify(arrayItem));
+    localStorage.setItem('items', JSON.stringify(arrayStorage));
+    
+}
