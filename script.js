@@ -226,6 +226,10 @@ function resetAddButton(){
 // Click AddPlus to open form input
 document.querySelector('.start_add_item').addEventListener('click', ()=>{
     document.querySelector('.add_list').classList.add("display_Flex");
+    
+    // Ẩn done và undone
+    document.querySelector('#done_now').style.display = 'none';
+    document.querySelector('#un_done').style.display = 'none';
 
     document.querySelector("#type_description").value = '';
     document.querySelector("#input_date").value = '';
@@ -255,22 +259,44 @@ add_btn.addEventListener('click', ()=> {
             //Add class ='chooseItem' => Xác định item vừa sửa
             let edit = document.querySelectorAll('.edit');
             if(edit[add_btn.id].parentElement.children[0].classList.contains('completeItem') == false){
-                arrayItem[add_btn.id] = 
-                `<li class= "chooseItem ${arrayStorage[add_btn.id].prioritize}">    
-                    <span class="content">${input.value}</span>
-                    <span class="pointFinish">${arrayFinish[add_btn.id]}</span>
-                    <span class="edit"><i class="fas fa-edit"></i></span>
-                    <span class="delete"><i class="fas fa-trash-alt"></i></span>
-                </li>`
+                if(edit[add_btn.id].parentElement.classList.contains('chooseItem')){     
+                    arrayItem[add_btn.id] = 
+                    `<li class= "chooseItem ${arrayStorage[add_btn.id].prioritize}">    
+                        <span class="content">${input.value}</span>
+                        <span class="pointFinish">${arrayFinish[add_btn.id]}</span>
+                        <span class="edit"><i class="fas fa-edit"></i></span>
+                        <span class="delete"><i class="fas fa-trash-alt"></i></span>
+                    </li>`
+                }
+                else{
+                    arrayItem[add_btn.id] = 
+                    `<li class= "${arrayStorage[add_btn.id].prioritize}">    
+                        <span class="content">${input.value}</span>
+                        <span class="pointFinish">${arrayFinish[add_btn.id]}</span>
+                        <span class="edit"><i class="fas fa-edit"></i></span>
+                        <span class="delete"><i class="fas fa-trash-alt"></i></span>
+                    </li>`
+                }
             }
             else{
-                arrayItem[add_btn.id] = 
-                `<li class= "chooseItem ${arrayStorage[add_btn.id].prioritize}">    
-                    <span class="content completeItem">${input.value}</span>
-                    <span class="pointFinish">${arrayFinish[add_btn.id]}</span>
-                    <span class="edit"><i class="fas fa-edit"></i></span>
-                    <span class="delete"><i class="fas fa-trash-alt"></i></span>
-                </li>`
+                if(edit[add_btn.id].parentElement.classList.contains('chooseItem')){
+                    arrayItem[add_btn.id] = 
+                    `<li class= "chooseItem ${arrayStorage[add_btn.id].prioritize}">    
+                        <span class="content completeItem">${input.value}</span>
+                        <span class="pointFinish">${arrayFinish[add_btn.id]}</span>
+                        <span class="edit"><i class="fas fa-edit"></i></span>
+                        <span class="delete"><i class="fas fa-trash-alt"></i></span>
+                    </li>`
+                }
+                else{
+                    arrayItem[add_btn.id] = 
+                    `<li class= "${arrayStorage[add_btn.id].prioritize}">    
+                        <span class="content completeItem">${input.value}</span>
+                        <span class="pointFinish">${arrayFinish[add_btn.id]}</span>
+                        <span class="edit"><i class="fas fa-edit"></i></span>
+                        <span class="delete"><i class="fas fa-trash-alt"></i></span>
+                    </li>`
+                }
             }
 
             //Rsset id for add_btn
@@ -398,8 +424,21 @@ function editItem() {
         tab.addEventListener('click', (e)=> {
             e.stopPropagation();
 
+            // if(document.querySelector('.fix_point')){
+            //     document.querySelector('.fix_point').classList.remove('fix_point');
+            // }
+            // tab.parentElement.classList.add('fix_point');
+            // console.log(tab.parentElement.outerHTML);
+
+
+
             // show input
             document.querySelector('.add_list').classList.add("display_Flex");
+
+            // Block done và undone
+            document.querySelector('#done_now').style.display = 'block';
+            document.querySelector('#un_done').style.display = 'block';
+
 
             input.value = arrayStorage[i].name;
             document.querySelector('#type_description').value = arrayStorage[i].description;
@@ -489,7 +528,6 @@ function chooseItemToWork() {
 start_Btn.style.display = 'inline-block';
 pause_Btn.style.display = 'none';
 skip_Btn.style.display = 'none';
-
 
 //Click nút Pomodoro
 pomodoro_Btn.addEventListener('click', pomodoro_Funct);
@@ -615,14 +653,14 @@ function starting() {
                 if(setting.autoStart_Breaktime){
                     starting();
                 }
+
+                // Auto Switch task
+                if(setting.autoStart_Switch){
+                switchTask();
+                }
             }
             else{
                 pomodoro_Funct();
-
-                 // Auto Switch task
-                if(setting.autoStart_Switch){
-                    switchTask();
-                }
 
                 // Auto start Pomodoro 
                 if(setting.autoStart_Pomodoro){
@@ -906,13 +944,14 @@ function filterTodoList(){
     localStorage.setItem('saveFilter', filterContent.value);
 }
     
+
+
 // Sort 
 document.querySelector('.sort').addEventListener('change', () =>{
     if(document.querySelector('.sort').value == 'sort_name'){
         sortName();
     }
 })
-
 // Sort by name
 function sortName() {
     let sortName = Array.from(document.querySelector('.to-do-list').childNodes);
